@@ -1,9 +1,16 @@
 source 'https://rubygems.org'
 
 
+# Known issue while bundle install- Json installations fails
+# The following link has a dependency installation guide to resolve the issue
+# https://github.com/flori/json/issues/253
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
+# If running into problems at this point
+#install this dev dependency:  sudo apt-get install libpq-dev
 gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
