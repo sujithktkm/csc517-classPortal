@@ -11,10 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203022406) do
+ActiveRecord::Schema.define(version: 20160207051333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "course_instructors", force: :cascade do |t|
+    t.boolean  "status",        null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "course_id"
+    t.integer  "instructor_id"
+  end
+
+  add_index "course_instructors", ["course_id"], name: "index_course_instructors_on_course_id", using: :btree
+  add_index "course_instructors", ["instructor_id"], name: "index_course_instructors_on_instructor_id", using: :btree
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "coursenumber", null: false
+    t.string   "title",        null: false
+    t.string   "description",  null: false
+    t.date     "start_date",   null: false
+    t.date     "end_date",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "enrollment_requests", force: :cascade do |t|
+    t.boolean  "finished",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "student_id"
+    t.integer  "course_id"
+  end
+
+  add_index "enrollment_requests", ["course_id"], name: "index_enrollment_requests_on_course_id", using: :btree
+  add_index "enrollment_requests", ["student_id"], name: "index_enrollment_requests_on_student_id", using: :btree
+
+  create_table "histories", force: :cascade do |t|
+    t.string   "role",       null: false
+    t.string   "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "course_id"
+  end
+
+  add_index "histories", ["course_id"], name: "index_histories_on_course_id", using: :btree
+  add_index "histories", ["user_id"], name: "index_histories_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                           null: false
@@ -26,4 +70,10 @@ ActiveRecord::Schema.define(version: 20160203022406) do
     t.datetime "updated_at",                     null: false
   end
 
+  add_foreign_key "course_instructors", "courses"
+  add_foreign_key "course_instructors", "users", column: "instructor_id"
+  add_foreign_key "enrollment_requests", "courses"
+  add_foreign_key "enrollment_requests", "users", column: "student_id"
+  add_foreign_key "histories", "courses"
+  add_foreign_key "histories", "users"
 end
