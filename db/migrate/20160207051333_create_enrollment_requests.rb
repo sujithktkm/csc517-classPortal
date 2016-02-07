@@ -10,5 +10,8 @@ class CreateEnrollmentRequests < ActiveRecord::Migration
 
     add_reference :enrollment_requests, :course, references: :courses, index: true
     add_foreign_key :enrollment_requests, :courses, column: :course_id
+
+    # finished has 0 -> enrollment request denied, 1 -> enrollement request accepted
+    # Change column name - 'finished'
   end
 end

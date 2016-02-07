@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207051333) do
+ActiveRecord::Schema.define(version: 20160207054445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20160207051333) do
   add_index "course_instructors", ["course_id"], name: "index_course_instructors_on_course_id", using: :btree
   add_index "course_instructors", ["instructor_id"], name: "index_course_instructors_on_instructor_id", using: :btree
 
+  create_table "coursepage_materials", force: :cascade do |t|
+    t.string   "title",       null: false
+    t.string   "description", null: false
+    t.string   "type",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "course_id"
+  end
+
+  add_index "coursepage_materials", ["course_id"], name: "index_coursepage_materials_on_course_id", using: :btree
+
   create_table "courses", force: :cascade do |t|
     t.string   "coursenumber", null: false
     t.string   "title",        null: false
@@ -38,9 +49,9 @@ ActiveRecord::Schema.define(version: 20160207051333) do
   end
 
   create_table "enrollment_requests", force: :cascade do |t|
-    t.boolean  "finished",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "finished",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "student_id"
     t.integer  "course_id"
   end
@@ -60,6 +71,18 @@ ActiveRecord::Schema.define(version: 20160207051333) do
   add_index "histories", ["course_id"], name: "index_histories_on_course_id", using: :btree
   add_index "histories", ["user_id"], name: "index_histories_on_user_id", using: :btree
 
+  create_table "student_enrollments", force: :cascade do |t|
+    t.string   "status",     null: false
+    t.string   "grade",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "student_id"
+    t.integer  "course_id"
+  end
+
+  add_index "student_enrollments", ["course_id"], name: "index_student_enrollments_on_course_id", using: :btree
+  add_index "student_enrollments", ["student_id"], name: "index_student_enrollments_on_student_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                           null: false
     t.string   "email",                          null: false
@@ -72,8 +95,11 @@ ActiveRecord::Schema.define(version: 20160207051333) do
 
   add_foreign_key "course_instructors", "courses"
   add_foreign_key "course_instructors", "users", column: "instructor_id"
+  add_foreign_key "coursepage_materials", "courses"
   add_foreign_key "enrollment_requests", "courses"
   add_foreign_key "enrollment_requests", "users", column: "student_id"
   add_foreign_key "histories", "courses"
   add_foreign_key "histories", "users"
+  add_foreign_key "student_enrollments", "courses"
+  add_foreign_key "student_enrollments", "users", column: "student_id"
 end
