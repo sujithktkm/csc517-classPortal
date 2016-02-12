@@ -1,9 +1,25 @@
 Rails.application.routes.draw do
+
+  get 'students/new'
+  get 'students/create'
+
+  # get 'student/new'
+  # get 'student/create'
+
+  root 'welcome#index'
+
+  resources :students, only: [:new, :create]
+
+  # get 'welcome/index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  get 'login' => 'authentication#new'
+  post 'login' => 'authentication#create'
+  delete 'logout' => 'authetication#destroy'
+
+  # get 'signup' => ''
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
