@@ -1,0 +1,12 @@
+<div>
+  <h1>Welcome to Class Portal</h1>
+  <p>If you are a student, please login to view your courses or signup. If you are an instructor, please login.</p>
+</div>
+
+<h1>Log in</h1>
+<%= bootstrap_form_for(:session, url: login_path) do |f| %>
+    <%= f.email_field :email, :placeholder => "Email" %>
+    <%= f.password_field :password, :placeholder => "Password" %>
+    <%= f.submit "Log in", class: "btn-submit" %>
+    <%= link_to 'Create Student Account', new_student_path, :class => 'btn btn-default' %>
+<% end %>
