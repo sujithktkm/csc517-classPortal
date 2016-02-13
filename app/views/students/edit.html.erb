@@ -1,0 +1,6 @@
+<%= bootstrap_form_for(@student) do |f| %>
+    <%= f.text_field :name, :value => params[:name] %>
+    <%= f.email_field :email, :value => params[:email] %>
+    <%= f.password_field :password %>
+    <%= f.submit "Update", class: 'btn-submit' %>
+<% end %>
