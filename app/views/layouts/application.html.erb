@@ -27,8 +27,8 @@
           <% if @user_authenticated.type == 'Student' %>
               <%= render 'layouts/students' %>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Edit Profile</a></li>
-              <li><a><%= @user_authenticated.email %></a></li>
+              <li><%= link_to "Edit Profile", edit_student_path(@user_authenticated), method: "get" %></li>
+              <li><a><%= @user_authenticated.name %></a></li>
               <li><a href="/login">Logout</a></li>
             </ul>
           <% elsif @user_authenticated.type == 'Instructor' %>

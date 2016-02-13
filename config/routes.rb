@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
 
-  get 'students/new'
-  get 'students/create'
-
+  #get 'students/new'
+  #get 'students/create'
+  #get 'students/:id/edit'  => 'students#edit'
+  #post 'students/:id' => 'students#update'
   # get 'student/new'
   # get 'student/create'
 
   root 'welcome#index'
 
-  resources :students, only: [:new, :create]
+  resources :students, only: [:new, :create, :edit, :update]
 
   # get 'welcome/index'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   get 'login' => 'authentications#new'
   post 'login' => 'authentications#create'
   delete 'logout' => 'authentications#destroy'
+
 
   # get 'signup' => ''
 
