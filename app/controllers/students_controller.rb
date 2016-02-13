@@ -11,8 +11,10 @@ class StudentsController < ApplicationController
     @student = Student.new(params)
     if @student.save
       session[:student_id] = @student.id
+      flash[:notice] = "Login successful"
       redirect_to root_path
     else
+      flash[:notice] = "Cannot login. Please try again"
       redirect_to new_student_path
     end
   end
