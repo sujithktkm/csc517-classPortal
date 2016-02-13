@@ -1,0 +1,9 @@
+<% if @Students %>
+    <h3>STUDENTS</h3> <br>
+    <h4>
+    <% @Students.each do |student| %>
+        <%= student.name %>    </t>       <%= link_to 'Delete', delete_user_path(student) %><br>
+    <% end %>
+    </h4>
+
+<% end %>
