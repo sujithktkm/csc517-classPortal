@@ -34,8 +34,8 @@
           <% elsif @user_authenticated.type == 'Instructor' %>
               <%= render 'layouts/instructors' %>
             <ul class="nav navbar-nav navbar-right">
-              <li><a><%= @user_authenticated.email %></a></li>
-              <li><a href="/login">Logout</a></li>
+              <li><a><%= @user_authenticated.name %></a></li>
+              <li><%= link_to "Logout", logout_path, method: "delete" %></li>
             </ul>
           <% elsif @user_authenticated.type == 'Admin' %>
               <%= render 'layouts/admins' %>

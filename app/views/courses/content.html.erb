@@ -1,5 +1,5 @@
 <h1>Add Content</h1>
-<%= bootstrap_form_for(:coursepage_materials, url: '/courses/add_content/') do |f| %>
+<%= bootstrap_form_for(@coursepage_materials, url: '/courses/add_content/') do |f| %>
     <div class="form-group">
       <%= f.select(:type, options_for_select([['Deadline', 1], ['Notification', 2]]), {}, {class: "form-control"}) %>
     </div>
