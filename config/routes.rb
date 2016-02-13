@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  get 'login' => 'authentication#new'
-  post 'login' => 'authentication#create'
-  delete 'logout' => 'authetication#destroy'
+  get 'login' => 'authentications#new'
+  post 'login' => 'authentications#create'
+  delete 'logout' => 'authentications#destroy'
 
   # get 'signup' => ''
 

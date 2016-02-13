@@ -1,4 +1,4 @@
-class AuthenticationController < ApplicationController
+class AuthenticationsController < ApplicationController
   skip_before_action :require_userauth
 
   def new
