@@ -8,7 +8,7 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new(params)
+    @student = Student.new(student_params)
     if @student.save
       session[:student_id] = @student.id
       flash[:notice] = "Login successful"

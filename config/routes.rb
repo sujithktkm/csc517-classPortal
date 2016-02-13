@@ -23,6 +23,16 @@ Rails.application.routes.draw do
   delete '/logout' => 'authentications#destroy'
 
 
+  get '/admins/manage_admin' => 'admins#manage_admin'
+  get '/admins/manage_course' => 'admins#manage_course'
+  get '/admins/manage_user' => 'admins#manage_user'
+  get '/admins/manage_admin/delete/:id' => 'admins#delete_admin', as: :delete_admin
+  get '/admins/manage_user/delete/:id' => 'admins#delete_user', as: :delete_user
+  get '/admins/manage_admin/create_admin' => 'admins#create_admin'
+  get '/admins/manage_admin/view_admin/:id' => 'admins#view_admin', as: :view_admin
+  #post 'admins/manage_admin/create_admin' => 'admin#create'
+  resources :admins
+
   # get 'signup' => ''
 
   # Example of regular route:
@@ -68,9 +78,9 @@ Rails.application.routes.draw do
   #   resources :photos, concerns: :toggleable
 
   # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
+  #   namespace :admins do
+  #     # Directs /admins/products/* to Admin::ProductsController
+  #     # (app/controllers/admins/products_controller.rb)
   #     resources :products
   #   end
 end
