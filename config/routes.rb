@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
 
+  get 'enrollments/index'
+  get 'enrollments/new'
+  get 'enrollments/create'
+  get 'grades/index'
+  get 'grades/new'
+  get 'grades/create'
+
+  get '/coursepage_materials/index'
+  get '/coursepage_materials/new'
+  get '/coursepage_materials/create'
+  post '/coursepage_materials/create' => 'coursepage_materials#create'
+  get 'materials/new'
+  get 'materials/create'
+  get 'materials/index'
+
   #get 'students/new'
   #get 'students/create'
   #get 'students/:id/edit'  => 'students#edit'
@@ -7,10 +22,11 @@ Rails.application.routes.draw do
   # get 'student/new'
   # get 'student/create'
 
+  get '/courses/list_courses' => 'courses#list_courses'
+  get '/courses/content' => 'courses#content'
+
   resources :students, only: [:new, :create, :edit, :update]
-  resources :courses do
-    resource :members
-  end
+  resources :courses
 
   root 'welcome#index'
 
@@ -21,7 +37,6 @@ Rails.application.routes.draw do
   get '/login' => 'authentications#new'
   post '/login' => 'authentications#create'
   delete '/logout' => 'authentications#destroy'
-
 
   get '/admins/manage_admin' => 'admins#manage_admin'
   get '/admins/manage_course' => 'admins#manage_course'
