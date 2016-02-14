@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
 
   #get 'students/new'
-  #get 'students/create'
-  #get 'students/:id/edit'  => 'students#edit'
+  get 'students/search'  => 'students#search'
+  post '/students/search_submit' => 'students#search_submit'
+  #get 'students/:id/edit' => 'students#edit'
   #post 'students/:id' => 'students#update'
   # get 'student/new'
   # get 'student/create'
 
-  root 'welcome#index'
 
   resources :students, only: [:new, :create, :edit, :update]
-  resources :courses, only: [:list, :show, :content, :add_content]
+  resources :courses, only: [:list, :show, :content, :add_content ]
+
+  root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

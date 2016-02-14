@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
 
 
   def edit  # Anurag: This method is editing student details[ Not courses though]
-    @student = Student.find(params[:id])
+     @student = Student.find(params[:id])
   end # edit end
 
   def update
@@ -38,8 +38,21 @@ class StudentsController < ApplicationController
 
   end
 
-
   def show
+  end
+
+
+  def search
+  end
+
+  def search_submit
+    textbox = '%#{params[:searchbox]}%'
+    if textbox.nil?
+      @courses = Course.all
+    else
+      #@courses =  Course.joins('INNER JOIN "course_instructors" ON "course_instructors"."course_id" = "courses"."id" INNER JOIN "users" ON "users"."id" = "course_instructors"."instructor_id" AND "users"."type" IN ('+ "'Instructor'" + ')').where('(courses.coursenumber LIKE :textbox ' + ' OR courses.title LIKE :textbox' + ' OR courses.description LIKE :textbox)' + ' OR users.name LIKE :textbox', :textbox => textbox)
+      @courses =  Course.where('(coursenumber LIKE :textbox ' + ' OR title LIKE :textbox' + ' OR description LIKE :textbox)', :textbox => textbox)
+    end
 
   end
 
