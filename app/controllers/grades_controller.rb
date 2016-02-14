@@ -1,22 +1,41 @@
 class GradesController < ApplicationController
-  def new
-    @coursepage_material = CoursepageMaterial.new
+  before_action :students_list
+
+  before_action :enrollmentid, only: [:edit]
+
+  def show
+
   end
 
-  def create
-    @coursepage_material = CoursepageMaterial.new(materials_params)
-    if @coursepage_material.save
+  def enrollmentid
+
+  end
+
+  def edit
+    @studentenrollments = StudentEnrollment.where('student_enrollments.student_id = :studentid and student_enrollments.course_id = :courseid', :studentid => params[:student_id].to_i, :courseid => params[:course_id].to_i)
+  end
+
+  def update
+    @studentenrollments = StudentEnrollment.find(params[:student_id])
+    if @studentenrollments.update(grades_params)
       # session[:material_id] = @student.id
-      flash[:notice] = "Login successful"
+      flash[:notice] = "Grade updated"
       redirect_to '/courses/show'
     else
-      flash[:notice] = "Cannot login. Please try again"
-      redirect_to '/coursepage_materials/create'
+      flash[:notice] = "Cannot update grade. Please try again"
+      redirect_to '/grades/edit'
     end
   end
 
   private
-  def materials_params
-    params.require(:coursepage_material).permit(:title, :description, :type, :course_id)
+  def grades_params
+    params.require(:student_enrollments).permit(:grade, :student_id, :course_id)
+  end
+
+  def students_list
+    @students = Student.all
+
+    # @students = Student.joins(:student_enrollments).where('student_enrollments.status = :status AND student_enrollments.course_id = :courseid', :status => 'ENROLLED', :courseid => params[:course_id].to_i)
+    # debugger
   end
 end
