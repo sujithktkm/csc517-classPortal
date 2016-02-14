@@ -37,12 +37,13 @@ class AdminsController < ApplicationController
   end
   def delete_admin
     @user = User.find(params[:id])
-    if @user.deletable?
+    if (@user.deletable?) && (params[:id].to_i != session[:user_id].to_i)
       @user.destroy
       redirect_to(:action => 'manage_admin')
     else
-      flash[:notice] = "Cannot delete super admin"
-      redirect_to(:acgition => 'manage_admin')
+
+      flash[:notice] = "Cannot delete the admin"
+      redirect_to(:action => 'manage_admin')
     end
   end
 
