@@ -1,5 +1,4 @@
 <% if @courseenrollment.empty? %>
-
   <%= link_to 'Enroll Course', login_path, method: 'get',:class => 'btn btn-success' %>
 <% else %>
   <% @courseenrollment.each do |c| %>
