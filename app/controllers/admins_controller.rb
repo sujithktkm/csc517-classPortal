@@ -42,7 +42,7 @@ class AdminsController < ApplicationController
       redirect_to(:action => 'manage_admin')
     else
       flash[:notice] = "Cannot delete super admin"
-      redirect_to(:action => 'manage_admin')
+      redirect_to(:acgition => 'manage_admin')
     end
     end
   def delete_user
