@@ -1,0 +1,11 @@
+<%= bootstrap_form_for(Course.new,:url => url_for(:controller => 'admins', :action => 'create_course_save')) do |f| %>
+    <%= f.text_field :coursenumber, :placeholder => "Course Number" %>
+    <%= f.text_field :title, :placeholder => "Course Name" %>
+    <%= f.text_field :description, :placeholder => "description" %>
+    <%= f.date_field :start_date, :placeholder => "Start Date" %>
+    <%= f.date_field :end_date, :placeholder => "End Date" %>
+    <%= f.text_field :status, :placeholder => "Status" %>
+    <%= f.submit "Submit", class: "btn-submit" %>
+
+<% end %>
+
