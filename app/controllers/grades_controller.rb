@@ -1,6 +1,5 @@
 class GradesController < ApplicationController
   before_action :students_list
-
   before_action :enrollmentid, only: [:edit]
 
   def show
