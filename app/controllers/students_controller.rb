@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
   end
 
   def index
-
+    @student = Student.find_by_id(params[:id])
   end
 
 
@@ -48,6 +48,7 @@ class StudentsController < ApplicationController
   end
 
   def search_submit
+    # @student_enrollments = StudentEnrollment.where('student_id = :studentid AND course_id = :courseid', :studentid => session[:user_id], :courseid => c.id)
     textbox = "%#{params[:searchbox]}%"
     if textbox.nil?
       @courses = Course.all
@@ -56,6 +57,11 @@ class StudentsController < ApplicationController
       @courses = Course.where('coursenumber LIKE :textbox OR title LIKE :textbox OR description LIKE :textbox', :textbox => textbox)
     end
 
+  end
+
+  def course_info
+    @courseenrollment ||= StudentEnrollment.where('student_id = :studentid AND course_id = :courseid',
+                                                  :studentid => session[:user_id], :courseid => params[:course_id].to_i) if(session[:user_id] && params[:course_id])
   end
 
   private

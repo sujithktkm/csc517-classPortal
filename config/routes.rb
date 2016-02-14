@@ -16,8 +16,10 @@ Rails.application.routes.draw do
   get 'materials/index'
 
   #get 'students/new'
-  get 'students/search'  => 'students#search'
+  get '/students/search'  => 'students#search'
+  get '/students/course_info' => 'students#course_info'
   post '/students/search_submit' => 'students#search_submit'
+  get '/students/search_submit' => 'students#search'
   #get 'students/:id/edit' => 'students#edit'
   #post 'students/:id' => 'students#update'
   # get 'student/new'
