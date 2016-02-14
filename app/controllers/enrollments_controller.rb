@@ -2,9 +2,9 @@ class EnrollmentsController < ApplicationController
   def index
   end
 
-  def new
+  def create
   end
 
-  def create
+  def update
   end
 end
