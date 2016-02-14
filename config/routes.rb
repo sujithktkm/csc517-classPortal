@@ -16,8 +16,9 @@ Rails.application.routes.draw do
   get 'materials/index'
 
   #get 'students/new'
-  #get 'students/create'
-  #get 'students/:id/edit'  => 'students#edit'
+  get 'students/search'  => 'students#search'
+  post '/students/search_submit' => 'students#search_submit'
+  #get 'students/:id/edit' => 'students#edit'
   #post 'students/:id' => 'students#update'
   # get 'student/new'
   # get 'student/create'
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :students, only: [:new, :create, :edit, :update]
   resources :courses
+
 
   root 'welcome#index'
 

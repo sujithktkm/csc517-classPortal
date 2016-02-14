@@ -31,6 +31,11 @@
               <li><a><%= @user_authenticated.name %></a></li>
               <li><%= link_to "Logout", logout_path, method: "delete" %></li>
             </ul>
+
+
+
+
+
           <% elsif @user_authenticated.type == 'Instructor' %>
               <%= render 'layouts/instructors' %>
             <ul class="nav navbar-nav navbar-right">
