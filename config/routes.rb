@@ -59,6 +59,9 @@ Rails.application.routes.draw do
   post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
 
 
+
+
+
   # get 'signup' => ''
 
   # Example of regular route:
