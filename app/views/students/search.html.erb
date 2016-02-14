@@ -1,0 +1,4 @@
+<%= bootstrap_form_tag url: '/students/search_submit', method: 'search_submit'  do |f| %>
+    <%= f.text_field :searchbox, label: "Enter search string" %>
+<%= f.submit 'Search' %>
+<% end %>

@@ -1,4 +1,4 @@
-class GradesController < ApplicationController
+class CoursepageMaterialsController < ApplicationController
   def new
     @coursepage_material = CoursepageMaterial.new
   end
@@ -19,4 +19,5 @@ class GradesController < ApplicationController
   def materials_params
     params.require(:coursepage_material).permit(:title, :description, :type, :course_id)
   end
+
 end

@@ -12,8 +12,5 @@ class ApplicationController < ActionController::Base
     redirect_to login_path unless check_auth
   end
 
-
-
-
   protect_from_forgery with: :exception
 end

@@ -8,13 +8,13 @@
       <td class="col-xs-1">End Date</td>
     </tr>
     <% @courseList.each do |c| %>
-      <tr>
-        <td class="col-xs-1"><%= link_to c.coursenumber, course_path(c) %></td>
-        <td class="col-xs-1"><%= c.title %></td>
-        <td class="col-xs-1"><%= c.description %></td>
-        <td class="col-xs-1"><%= c.start_date %></td>
-        <td class="col-xs-1"><%= c.end_date %></td>
-      </tr>
+        <tr>
+          <td class="col-xs-1"><%= link_to c.coursenumber, course_path(c) %></td>
+          <td class="col-xs-1"><%= c.title %></td>
+          <td class="col-xs-1"><%= c.description %></td>
+          <td class="col-xs-1"><%= c.start_date %></td>
+          <td class="col-xs-1"><%= c.end_date %></td>
+        </tr>
     <% end %>
   </table>
 </div>

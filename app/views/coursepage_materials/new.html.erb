@@ -1,10 +1,10 @@
 <h1>Add Content</h1>
-<%= bootstrap_form_for(@coursepage_materials, url: '/courses/add_content/') do |f| %>
+<%= bootstrap_form_for(@coursepage_material, url: '/coursepage_materials/create') do |f| %>
     <div class="form-group">
       <%= f.select(:type, options_for_select([['Deadline', 1], ['Notification', 2]]), {}, {class: "form-control"}) %>
     </div>
     <%= f.text_field :title, :placeholder => "Title" %>
     <%= f.text_field :description, :placeholder => "Description" %>
-    <%= f.hidden_field :course_id, :value => params[:id] %>
+    <%= f.hidden_field :course_id, value: params[:course_id] %>
     <%= f.submit "Add", class: "btn-submit" %>
 <% end %>

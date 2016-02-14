@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <table class="table" width="100&">
+    <tr>
+      <td class="col-xs-1">Course ID</td>
+      <td class="col-xs-1">Course Title</td>
+      <td class="col-xs-1">Course Description</td>
+      <td class="col-xs-1">Start Date</td>
+      <td class="col-xs-1">End Date</td>
+    </tr>
+    <% @courses.each do |c| %>
+        <tr>
+          <td class="col-xs-1"><%= c.coursenumber %></td>
+          <td class="col-xs-1"><%= c.title %></td>
+          <td class="col-xs-1"><%= c.description %></td>
+          <td class="col-xs-1"><%= c.start_date %></td>
+          <td class="col-xs-1"><%= c.end_date %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
