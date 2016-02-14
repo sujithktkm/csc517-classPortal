@@ -29,8 +29,14 @@ Rails.application.routes.draw do
   get '/admins/manage_user/delete/:id' => 'admins#delete_user',as: :delete_user
   get '/admins/manage_admin/create_admin' => 'admins#create_admin'
   get '/admins/manage_admin/view_admin/:id'=> 'admins#view_admin', as: :view_admin
-  #post 'admins/manage_admin/create_admin' => 'admin#create'
-  resources :admins
+  post 'admins/create_admin' => 'admins#create'
+  get '/admins/manage_admin/edit_admin' => 'admins#edit_admin'
+  patch 'admins/edit_admin_save' => 'admins#edit_admin_save'
+  get '/admins/create_instructor' => 'admins#create_instructor'
+  post '/admins/create_instructor_save' =>'admins#create_instructor_save'
+  get '/admins/manage_course/view_course/:id' => 'admins#view_course', as: :view_course
+
+  #resources :admins
 
   # get 'signup' => ''
 

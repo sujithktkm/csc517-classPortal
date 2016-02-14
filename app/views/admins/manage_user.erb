@@ -1,9 +1,21 @@
 <% if @Students %>
-    <h3>STUDENTS</h3> <br>
+    <h3>Students</h3> <br>
     <h4>
     <% @Students.each do |student| %>
-        <%= student.name %>    </t>       <%= link_to 'Delete', delete_user_path(student) %><br>
+        <%= student.name %>    </t>  <%= link_to 'View', view_admin_path(student) %>      <%= link_to 'Delete', delete_user_path(student) %><br>
     <% end %>
     </h4>
 
 <% end %>
+
+<% if @Instructors %>
+    <h3>Instructors</h3> <br>
+    <h4>
+      <% @Instructors.each do |instructor| %>
+          <%= instructor.name %>    </t> <%= link_to 'View', view_admin_path(instructor) %>      <%= link_to 'Delete', delete_user_path(instructor) %><br>
+      <% end %>
+    </h4>
+
+
+<% end %>
+<%= link_to 'Create new Instructor', "/admins/create_instructor" %>

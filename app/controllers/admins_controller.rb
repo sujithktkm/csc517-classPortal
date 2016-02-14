@@ -7,10 +7,33 @@ class AdminsController < ApplicationController
   end
   def manage_user
     @Students=Student.all
+    @Instructors=Instructor.all
 
   end
-  def show
+  def edit_admin
     @Admin = User.find(session[:user_id])
+  end
+
+  def create_instructor_save
+
+    @Instructor=Instructor.new(instructor_params)
+    if @Instructor.save
+      flash[:notice]="Instructor created successfully"
+      redirect_to(:action => 'manage_admin')
+    else
+      flash[:notice]="Could not create the Instructor"
+      redirect_to(:action => 'manage_admin')
+    end
+
+  end
+  def create_instructor
+    @Instructor=Instructor.new
+  end
+
+  def edit_admin_save
+    @Admin = User.find(session[:user_id])
+    @Admin.update_attributes(admin_params)
+    redirect_to(:action => 'manage_admin')
   end
   def delete_admin
     User.find(params[:id]).destroy
@@ -23,9 +46,18 @@ class AdminsController < ApplicationController
   def create_admin
     @New_admin=Admin.new
   end
+
+  def manage_course
+      @Course = Course.all
+
+  end
 def view_admin
   @Admin = User.find(params[:id])
 end
+  def view_course
+    @Course = Course.find(params[:id])
+
+  end
   def create
     @Admin=Admin.new(admin_params)
    if @Admin.save
@@ -38,8 +70,17 @@ end
     end
 
 private
+  def instructor_params
+    params.require(:instructor).permit(:name, :email, :password)
+
+  end
   def admin_params
     params.require(:admin).permit(:name, :email, :password)
+
+  end
+  def admin_edit_params
+    params.require(:admin).permit(:name, :email, :password)
+    #params.require(:admin).permit(:name)
 
   end
 end

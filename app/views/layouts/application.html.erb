@@ -40,7 +40,7 @@
           <% elsif @user_authenticated.type == 'Admin' %>
               <%= render 'layouts/admins' %>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/admins/edit">Edit Profile</a></li>
+              <li><a href="/admins/manage_admin/edit_admin">Edit Profile</a></li>
               <li><a><%= @user_authenticated.email %></a></li>
               <li><a href="/login">Logout</a></li>
             </ul>
