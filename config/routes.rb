@@ -1,23 +1,65 @@
 Rails.application.routes.draw do
 
-  get 'students/new'
-  get 'students/create'
+  get 'enrollments/index'
+  get 'enrollments/new'
+  get 'enrollments/create'
+  get 'grades/index'
+  get 'grades/new'
+  get 'grades/create'
 
+  get '/coursepage_materials/index'
+  get '/coursepage_materials/new'
+  get '/coursepage_materials/create'
+  post '/coursepage_materials/create' => 'coursepage_materials#create'
+  get 'materials/new'
+  get 'materials/create'
+  get 'materials/index'
+
+  #get 'students/new'
+  get '/students/search'  => 'students#search'
+  get '/students/course_info' => 'students#course_info'
+  post '/students/search_submit' => 'students#search_submit'
+  get '/students/search_submit' => 'students#search'
+  #get 'students/:id/edit' => 'students#edit'
+  #post 'students/:id' => 'students#update'
   # get 'student/new'
   # get 'student/create'
 
+  get '/courses/list_courses' => 'courses#list_courses'
+  get '/courses/content' => 'courses#content'
+
+  resources :students, only: [:new, :create, :edit, :update]
+  resources :courses
+
+
   root 'welcome#index'
 
-  resources :students, only: [:new, :create]
-
-  # get 'welcome/index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  get 'login' => 'authentications#new'
-  post 'login' => 'authentications#create'
-  delete 'logout' => 'authentications#destroy'
+  get '/login' => 'authentications#new'
+  post '/login' => 'authentications#create'
+  delete '/logout' => 'authentications#destroy'
+
+  get '/admins/manage_admin' => 'admins#manage_admin'
+  get '/admins/manage_course' => 'admins#manage_course'
+  get '/admins/manage_user' => 'admins#manage_user'
+  get '/admins/manage_admin/delete/:id' => 'admins#delete_admin', as: :delete_admin
+  get '/admins/manage_user/delete/:id' => 'admins#delete_user', as: :delete_user
+  get '/admins/manage_admin/create_admin' => 'admins#create_admin'
+
+  get '/admins/manage_admin/view_admin/:id'=> 'admins#view_admin', as: :view_admin
+  post 'admins/create_admin' => 'admins#create'
+  get '/admins/manage_admin/edit_admin' => 'admins#edit_admin'
+  patch 'admins/edit_admin_save' => 'admins#edit_admin_save'
+  get '/admins/create_instructor' => 'admins#create_instructor'
+  post '/admins/create_instructor_save' =>'admins#create_instructor_save'
+  get '/admins/manage_course/view_course/:id' => 'admins#view_course', as: :view_course
+  get '/admins/manage_course/delete_course/:id' => 'admins#delete_course', as: :delete_course
+  get '/admins/manage_course/create_course' => 'admins#create_course'
+  post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
+
 
   # get 'signup' => ''
 
@@ -64,9 +106,9 @@ Rails.application.routes.draw do
   #   resources :photos, concerns: :toggleable
 
   # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
+  #   namespace :admins do
+  #     # Directs /admins/products/* to Admin::ProductsController
+  #     # (app/controllers/admins/products_controller.rb)
   #     resources :products
   #   end
 end

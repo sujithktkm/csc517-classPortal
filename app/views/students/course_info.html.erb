@@ -1,0 +1,17 @@
+<% if @courseenrollment.empty? %>
+  <%= link_to 'Enroll Course', login_path, method: 'get' %>
+<% else %>
+  <% @courseenrollment.each do |c| %>
+    <% if c.status == 'ENROLLED' %>
+      <!--change path ASAP and method type to delete-->
+      <%= link_to 'Drop Course', login_path, method: 'get' %>
+      <% unless c.grade.nil? %>
+          <div class="panel panel-default">
+            Student Grade: <%= c.grade %>
+          </div>
+      <% end %>
+    <% elsif @courseenrollment.status == 'PENDING' %>
+      Enrollment Request pending
+    <% end %>
+  <% end %>
+<% end %>
