@@ -44,7 +44,19 @@ class AdminsController < ApplicationController
       flash[:notice] = "Cannot delete super admin"
       redirect_to(:acgition => 'manage_admin')
     end
+  end
+
+    def create_course
+      @Course = Course.new
     end
+
+    def create_course_save
+        @Course = Course.new(course_params)
+        @Course.save
+        redirect_to(:action => 'manage_course')
+
+    end
+
   def delete_user
     User.find(params[:id]).destroy
     redirect_to(:action => 'manage_user')
@@ -62,6 +74,12 @@ def view_admin
 end
   def view_course
     @Course = Course.find(params[:id])
+
+  end
+  def delete_course
+    @Course = Course.find(params[:id])
+    @Course.destroy
+    redirect_to(:action => 'manage_course')
 
   end
   def create
@@ -88,5 +106,8 @@ private
     params.require(:admin).permit(:name, :email, :password)
     #params.require(:admin).permit(:name)
 
+  end
+  def course_params
+    params.require(:course).permit(:coursenumber, :title, :description,:start_date,:end_date,:status)
   end
 end

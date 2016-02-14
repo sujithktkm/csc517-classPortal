@@ -2,8 +2,8 @@
     <h3>Courses</h3> <br>
     <h4>
       <% @Course.each do |course| %>
-          <%= course.title %>    <%= link_to 'View', view_course_path(course) %>        <%= link_to 'Delete', delete_admin_path(course) %><br>
+          <%= course.title %>    <%= link_to 'View', view_course_path(course) %>        <%= link_to 'Delete', delete_course_path(course) %><br>
       <% end %>
-      <%= link_to 'Create new course', "/admins/manage_admin/create_admin" %>
+      <%= link_to 'Create new course', "/admins/manage_course/create_course" %>
     </h4>
 <% end %>
