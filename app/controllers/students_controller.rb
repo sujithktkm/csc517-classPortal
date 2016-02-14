@@ -63,6 +63,7 @@ class StudentsController < ApplicationController
   def course_info
     @courseenrollment ||= StudentEnrollment.where('student_id = :studentid AND course_id = :courseid',
                                                    :studentid => session[:user_id], :courseid => params[:course_id].to_i) if(session[:user_id] && params[:course_id])
+
   end
 
   def course_history

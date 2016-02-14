@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'enrollments/index'
   get 'enrollments/new'
-  get 'enrollments/create'
+  post 'enrollments/create'
   get '/grades/edit' => 'grades#edit'
   get '/grades/students_list' => 'grades#students_list'
   post '/grades/edit' => 'grades#edit'
@@ -57,6 +57,9 @@ Rails.application.routes.draw do
   get '/admins/manage_course/delete_course/:id' => 'admins#delete_course', as: :delete_course
   get '/admins/manage_course/create_course' => 'admins#create_course'
   post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
+
+
+
 
 
   # get 'signup' => ''
