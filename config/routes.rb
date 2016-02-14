@@ -54,8 +54,9 @@ Rails.application.routes.draw do
   get '/admins/create_instructor' => 'admins#create_instructor'
   post '/admins/create_instructor_save' =>'admins#create_instructor_save'
   get '/admins/manage_course/view_course/:id' => 'admins#view_course', as: :view_course
-
-
+  get '/admins/manage_course/delete_course/:id' => 'admins#delete_course', as: :delete_course
+  get '/admins/manage_course/create_course' => 'admins#create_course'
+  post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
 
 
   # get 'signup' => ''
