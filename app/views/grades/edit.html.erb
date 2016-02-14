@@ -1,4 +1,5 @@
-<%= bootstrap_form_for(@studentenrollments) do |f| %>
+<!--@studentenrollments-->
+<%= bootstrap_form_for(@studentenrollments,  url: grades_update_path(:enrollment_id => params[:enrollment_id], :student_id => params[:student_id], :course_id => params[:course_id]), method: 'patch') do |f| %>
     <%= f.text_field :grade, :placeholder => '0' %>
     <%= f.submit 'Submit Grade', class: 'btn-submit' %>
 <% end %>

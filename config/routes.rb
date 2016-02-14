@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   get 'enrollments/index'
   get 'enrollments/new'
   get 'enrollments/create'
-  # get '/grades/edit' => 'grades#edit'
+  get '/grades/edit' => 'grades#edit'
   get '/grades/students_list' => 'grades#students_list'
   post '/grades/edit' => 'grades#edit'
+  patch '/grades/update' => 'grades#update'
 
   get '/coursepage_materials/index'
   get '/coursepage_materials/new'
