@@ -16,15 +16,12 @@ Rails.application.routes.draw do
   get 'materials/create'
   get 'materials/index'
 
-  #get 'students/new'
+
   get '/students/search'  => 'students#search'
   get '/students/course_info' => 'students#course_info'
   post '/students/search_submit' => 'students#search_submit'
   get '/students/search_submit' => 'students#search'
-  #get 'students/:id/edit' => 'students#edit'
-  #post 'students/:id' => 'students#update'
-  # get 'student/new'
-  # get 'student/create'
+  get '/students/course_history' => 'students#course_history'
 
   get '/courses/list_courses' => 'courses#list_courses'
   get '/courses/content' => 'courses#content'

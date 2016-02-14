@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <table class="table" width="100&">
+    <tr>
+      <td class="col-xs-1">Course Title</td>
+      <td class="col-xs-1">Course Description</td>
+      <td class="col-xs-1">Course Grade</td>
+      <td class="col-xs-1">Course End Date</td>
+    </tr>
+    <% @history_data.each do |c| %>
+        <tr>
+          <td class="col-xs-1"><%= c.title %></td>
+          <td class="col-xs-1"><%= c.description %></td>
+          <td class="col-xs-1"><%= c.grade %></td>
+          <td class="col-xs-1"><%= c.end_date %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+
+  <%= link_to "Back", :back, :class => 'btn btn-info'%>
+
+
+
