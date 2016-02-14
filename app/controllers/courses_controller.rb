@@ -8,11 +8,10 @@ class CoursesController < ApplicationController
   end
 
   def list_courses
-    @courseList = Course.joins(:course_instructors).where(course_instructors: { instructor_id: @user_authenticated.id})
+    @courseList = Course.where('instructor_id = :instructorid', :instructorid => @user_authenticated.id)
   end
 
   def content
-
   end
 
 end

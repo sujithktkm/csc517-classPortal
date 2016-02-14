@@ -55,6 +55,7 @@ class StudentsController < ApplicationController
     else
       #@courses =  Course.joins('INNER JOIN "course_instructors" ON "course_instructors"."course_id" = "courses"."id" INNER JOIN "users" ON "users"."id" = "course_instructors"."instructor_id" AND "users"."type" IN ('+ "'Instructor'" + ')').where('(courses.coursenumber LIKE :textbox ' + ' OR courses.title LIKE :textbox' + ' OR courses.description LIKE :textbox)' + ' OR users.name LIKE :textbox', :textbox => textbox)
       @courses = Course.where('coursenumber LIKE :textbox OR title LIKE :textbox OR description LIKE :textbox', :textbox => textbox)
+      # Add instructor name search**************
     end
 
   end

@@ -1,2 +1,4 @@
-<h1>Grades#edit</h1>
-<p>Find me in app/views/grades/edit.html.erb</p>
+<%= bootstrap_form_for(@studentenrollments) do |f| %>
+    <%= f.text_field :grade, :placeholder => '0' %>
+    <%= f.submit 'Submit Grade', class: 'btn-submit' %>
+<% end %>
