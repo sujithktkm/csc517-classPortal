@@ -3,7 +3,13 @@ Title:           <%= @Course.title %> <br>
 Description:     <%= @Course.description %> <br>
 Start Date:     <%= @Course.start_date %> <br>
 End Date:     <%= @Course.end_date %> <br>
-Status :      <%= @Course.status %> <br>
+Status :      <% if @Course.status == true%>
+                Active
+              <% else %>
+                InActive
+              <% end %>
+              <br>
+Instructor :  <%= Instructor.find(@Course.instructor_id).name%> <br>
 
 
 
