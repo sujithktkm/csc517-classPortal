@@ -30,6 +30,16 @@ class AdminsController < ApplicationController
     @Instructor=Instructor.new
   end
 
+  def edit_course
+    @Course = Course.find(params[:id])
+
+  end
+  def edit_admin_course_save
+    @Course = Course.find(params[:id])
+    @Course.update_attributes(course_params)
+    redirect_to(:action => 'manage_course')
+
+  end
   def edit_admin_save
     @Admin = User.find(session[:user_id])
     @Admin.update_attributes(admin_params)
@@ -109,6 +119,6 @@ private
 
   end
   def course_params
-    params.require(:course).permit(:coursenumber, :title, :description,:start_date,:end_date,:status)
+    params.require(:course).permit(:coursenumber, :title, :description,:start_date,:end_date,:status,:instructor_id)
   end
 end

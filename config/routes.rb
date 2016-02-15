@@ -57,7 +57,8 @@ Rails.application.routes.draw do
   get '/admins/manage_course/delete_course/:id' => 'admins#delete_course', as: :delete_course
   get '/admins/manage_course/create_course' => 'admins#create_course'
   post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
-
+  get '/admins/manage_course/edit_course/:id' => 'admins#edit_course', as: :edit_admin_course
+  patch '/admins/edit_admin_course_save/:id' => 'admins#edit_admin_course_save'
 
 
 
