@@ -6,5 +6,6 @@
     <%= f.text_field :title, :placeholder => "Title" %>
     <%= f.text_field :description, :placeholder => "Description" %>
     <%= f.hidden_field :course_id, value: params[:course_id] %>
-    <%= f.submit "Add", class: "btn-submit" %>
+    <%= f.submit "Add", class: " btn btn-submit btn-success" %><nbsp></nbsp>
+    <%= link_to "Back", root_path, :class => 'btn btn-info'%>
 <% end %>
