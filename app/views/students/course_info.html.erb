@@ -1,5 +1,4 @@
 <% if @courseenrollment.empty? %>
-
   <%= link_to 'Enroll Course', enrollments_create_path(:course_id => params[:course_id], :student_id => session[:user_id]), method: 'post',:class => 'btn btn-success' %>
     &nbsp   <%= link_to "Back to search", :back, :class => 'btn btn-info'%>
 <% else %>
