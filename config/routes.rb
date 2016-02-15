@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  post 'enrollments/create'
+  delete 'enrollments/destroy'
   get '/enrollments/index'
   put '/enrollments/update' => 'enrollments#update'
   get '/enrollments/create'
+
   get '/grades/edit' => 'grades#edit'
   get '/grades/students_list' => 'grades#students_list'
   post '/grades/edit' => 'grades#edit'
@@ -16,7 +19,7 @@ Rails.application.routes.draw do
   get 'materials/create'
   get 'materials/index'
 
-
+  get '/students/show' =>   'students#show'
   get '/students/search'  => 'students#search'
   get '/students/course_info' => 'students#course_info'
   post '/students/search_submit' => 'students#search_submit'
@@ -26,7 +29,7 @@ Rails.application.routes.draw do
   get '/courses/list_courses' => 'courses#list_courses'
   get '/courses/content' => 'courses#content'
 
-  resources :students, only: [:new, :create, :edit, :update]
+  resources :students, only: [:new, :create, :edit, :update, :show]
   resources :courses
 
 

@@ -41,8 +41,11 @@ class StudentsController < ApplicationController
 
   end
 
+# Display my courses
   def show
+    @courseinfo = StudentEnrollment.select('"student_enrollments".*, "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled', :studentid => session[:user_id], :enrolled => "ENROLLED")
   end
+
 
 
   def search

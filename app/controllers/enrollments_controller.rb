@@ -35,4 +35,18 @@ class EnrollmentsController < ApplicationController
       redirect_to enrollments_index_path(:course_id => course_id)
     end
   end
+
+  def destroy
+    enrollmentrequest = EnrollmentRequest.where(course_id: params[:course_id], student_id: params[:student_id]).first
+    enrollmentrequest.destroy
+
+    studentenrollment = StudentEnrollment.where(course_id: params[:course_id], student_id: params[:student_id]).first
+    studentenrollment.destroy
+
+    history = History.where(course_id: params[:course_id], user_id: params[:student_id]).first
+    history.destroy
+
+    redirect_to root_path
+
+  end
 end
