@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <table class="table" width="100&">
+    <tr>
+      <td class="col-xs-1"><strong/>Course ID</td>
+      <td class="col-xs-1"><strong/>Course Title</td>
+      <td class="col-xs-1"><strong/>Course Description</td>
+      <td class="col-xs-1"><strong/>Start Date</td>
+      <td class="col-xs-1"><strong/>End Date</td>
+      <td class="col-xs-1"><strong/>Grade</td>
+      <td class="col-xs-1"><strong/>Instructor</td>
+    </tr>
+    <% @courseinfo.each do |c| %>
+        <% @instructor = Instructor.find_by_sql('SELECT * from users WHERE id = '  + c.instructor_id.to_s).first %>
+        <tr>
+          <!--course_path(c)-->
+          <!--The folowing link should go the Announcements page-->
+          <td class="col-xs-1"><%= link_to c.coursenumber, login_path %></td>
+          <td class="col-xs-1"><%= c.title %></td>
+          <td class="col-xs-1"><%= c.description %></td>
+          <td class="col-xs-1"><%= c.start_date %></td>
+          <td class="col-xs-1"><%= c.end_date %></td>
+          <td class="col-xs-1"><%= c.grade %></td>
+          <td class="col-xs-1"><%= @instructor.name %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= link_to "Back", root_path, :class => 'btn btn-info'%>
