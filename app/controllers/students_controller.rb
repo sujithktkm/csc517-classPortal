@@ -33,6 +33,7 @@ class StudentsController < ApplicationController
   def update
     @student = Student.find(params[:id])
     if @student.update(student_params)
+      flash[:success] = 'Updated profile!'
       redirect_to root_path
     else
       render 'edit'
@@ -40,8 +41,11 @@ class StudentsController < ApplicationController
 
   end
 
+# Display my courses
   def show
+    @courseinfo = StudentEnrollment.select('"student_enrollments".*, "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled', :studentid => session[:user_id], :enrolled => "ENROLLED")
   end
+
 
 
   def search

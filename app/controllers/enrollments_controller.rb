@@ -24,16 +24,29 @@ class EnrollmentsController < ApplicationController
     if enrollments_update == 'true'
       enrollmentrequest.update_attribute(:finished, enrollments_update)
       studentenrollment.update_attributes(:status => 'ENROLLED', :grade => '0')
-      # history = History.new
-      # history.is_current= true;
-      # history.user = enrollmentrequest.student
-      # history.course = enrollmentrequest.course
-      # history.save
+      @history = History.find_or_create_by(course_id: params[:course_id], user_id: params[:student_id]) do |h|
+        h.role = 'Student'
+        h.grade = '0'
+      end
       redirect_to enrollments_index_path(:course_id => course_id)
     elsif enrollments_update == 'false'
       enrollmentrequest.update_attribute(:finished, nil)
       studentenrollment.update_attributes(:status => 'UNENROLLED', :grade => nil)
       redirect_to enrollments_index_path(:course_id => course_id)
     end
+  end
+
+  def destroy
+    enrollmentrequest = EnrollmentRequest.where(course_id: params[:course_id], student_id: params[:student_id]).first
+    enrollmentrequest.destroy
+
+    studentenrollment = StudentEnrollment.where(course_id: params[:course_id], student_id: params[:student_id]).first
+    studentenrollment.destroy
+
+    history = History.where(course_id: params[:course_id], user_id: params[:student_id]).first
+    history.destroy
+
+    redirect_to root_path
+
   end
 end
