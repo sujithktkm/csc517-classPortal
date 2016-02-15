@@ -78,10 +78,8 @@ class StudentsController < ApplicationController
   end
 
   def course_history
-
     @student = Student.find(session[:user_id])
     @history_data ||= History.select('"histories"."grade"', '"courses"."title"', '"courses"."description"', '"courses"."end_date"').joins(:course).where('user_id = :studentid', :studentid => @student.id)
-
 
   end
 

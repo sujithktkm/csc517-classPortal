@@ -11,7 +11,4 @@ class CoursesController < ApplicationController
     @courseList = Course.where('instructor_id = :instructorid', :instructorid => @user_authenticated.id)
   end
 
-  def content
-  end
-
 end

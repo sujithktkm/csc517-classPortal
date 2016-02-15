@@ -20,5 +20,17 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless @user_authenticated && @user_authenticated.type == 'Student'
   end
 
+  def admin_access
+    redirect_to root_path unless @user_authenticated && @user_authenticated.type == 'Admin'
+  end
+
+  def student_admin_access
+    redirect_to root_path unless @user_authenticated && ['Admin', 'Student'].include?(@user_authenticated.type)
+  end
+
+  def instructor_admin_access
+    redirect_to root_path unless @user_authenticated && ['Admin', 'Instructor'].include?(@user_authenticated.type)
+  end
+
   protect_from_forgery with: :exception
 end

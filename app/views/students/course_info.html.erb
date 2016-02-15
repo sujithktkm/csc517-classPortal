@@ -1,6 +1,6 @@
 <% if @courseenrollment.empty? %>
   <%= link_to 'Enroll Course', enrollments_create_path(:course_id => params[:course_id], :student_id => session[:user_id]), method: 'post',:class => 'btn btn-success' %>
-    &nbsp   <%= link_to "Back to search", :back, :class => 'btn btn-info'%>
+    &nbsp   <%= link_to 'Back to search', :back, :class => 'btn btn-info'%>
 <% else %>
   <% @courseenrollment.each do |c| %>
     <% if c.status == 'ENROLLED' %>
@@ -13,16 +13,16 @@
                 </div>
             <% end %>
             <%= link_to 'Drop Course', enrollments_destroy_path(:course_id => params[:course_id],:student_id => session[:user_id]), method: 'delete',:class =>'btn btn-danger' %>
-            &nbsp   <%= link_to "Back to search",:back, :class => 'btn btn-info'%>
+            &nbsp   <%= link_to 'Back to search', :back, :class => 'btn btn-info'%>
 
 
     <% elsif c.status == 'PENDING' %>
             <h1 > Pending Approval!</h1>
-            <%= link_to "Back to search", students_search_path, :class => 'btn btn-info'%>
+            <%= link_to 'Back to search', students_search_path, :class => 'btn btn-info'%>
 
     <% elsif c.status == 'UNENROLLED' %>
         <h1 > Unfortunately,you are no longer allowed to enroll for this course!</h1>
-        <%= link_to "Back to search", students_search_path, :class => 'btn btn-info'%>
+        <%= link_to 'Back to search', students_search_path, :class => 'btn btn-info'%>
     <% end %>
 
   <% end %>
