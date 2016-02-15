@@ -12,5 +12,13 @@ class ApplicationController < ActionController::Base
     redirect_to login_path unless check_auth
   end
 
+  def instructor_access
+    redirect_to root_path unless @user_authenticated && @user_authenticated.type == 'Instructor'
+  end
+
+  def student_access
+    redirect_to root_path unless @user_authenticated && @user_authenticated.type == 'Student'
+  end
+
   protect_from_forgery with: :exception
 end

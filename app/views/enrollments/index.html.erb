@@ -1,2 +1,31 @@
-<h1>Enrollments#index</h1>
-<p>Find me in app/views/enrollments/index.html.erb</p>
+<% unless params[:course_id].nil? %>
+    <div class="panel panel-default">
+      <table class="table" width="100&">
+        <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Accept Response</td>
+          <td>Reject Response</td>
+        </tr>
+        <% @users.each do |u| %>
+            <% @enrollment_record = EnrollmentRequest.find_by_sql('SELECT * from enrollment_requests WHERE course_id = ' + params[:course_id].to_s + ' and finished=false and student_id = ' + u.id.to_s) %>
+            <tr>
+              <td><%= u.name %></td>
+              <td><%= u.email %></td>
+              <td>
+                <%= bootstrap_form_tag url: enrollments_update_path(:enrollment_id => @enrollment_record, :acceptance => true, :course_id => params[:course_id], :student_id => u.id), method: 'put' do |f| %>
+                    <%= f.submit 'Approve', class: 'btn btn-success' %>
+                <% end %>
+              </td>
+              <td>
+                <%= bootstrap_form_tag url: enrollments_update_path(:enrollment_id => @enrollment_record, :acceptance => false, :course_id => params[:course_id], :student_id => u.id), method: 'put' do |f| %>
+                    <%= f.submit 'Reject', class: 'btn btn-danger' %>
+                <% end %>
+              </td>
+
+            </tr>
+        <% end %>
+      </table>
+    </div>
+    <%= link_to "Back", root_path, :class => 'btn btn-info'%>
+<% end %>
