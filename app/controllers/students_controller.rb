@@ -33,6 +33,7 @@ class StudentsController < ApplicationController
   def update
     @student = Student.find(params[:id])
     if @student.update(student_params)
+      flash[:success] = 'Updated profile!'
       redirect_to root_path
     else
       render 'edit'
