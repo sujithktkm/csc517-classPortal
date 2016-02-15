@@ -3,5 +3,6 @@
     <%= f.text_field :name, value: params[:name] %>
     <%= f.email_field :email, value: params[:email] %>
     <%= f.password_field :password %>
-    <%= f.submit "Update", class: 'btn-submit' %>
+    <%= f.submit "Update", class: 'btn-submit',:class => 'btn btn-success' %>&nbsp
+    <%= link_to "Back", :back, :class => 'btn btn-info'%>
 <% end %>

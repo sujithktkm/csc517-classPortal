@@ -51,6 +51,7 @@ class AdminsController < ApplicationController
       @user.destroy
       redirect_to(:action => 'manage_admin')
     else
+
       flash[:notice] = "Cannot delete the admin"
       redirect_to(:action => 'manage_admin')
     end

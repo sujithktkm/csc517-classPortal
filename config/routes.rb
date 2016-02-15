@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'enrollments/index'
-  get 'enrollments/new'
-  get 'enrollments/create'
-  # get '/grades/edit' => 'grades#edit'
+  get '/enrollments/index'
+  put '/enrollments/update' => 'enrollments#update'
+  get '/enrollments/create'
+  get '/grades/edit' => 'grades#edit'
   get '/grades/students_list' => 'grades#students_list'
   post '/grades/edit' => 'grades#edit'
+  patch '/grades/update' => 'grades#update'
 
   get '/coursepage_materials/index'
   get '/coursepage_materials/new'
@@ -15,15 +16,12 @@ Rails.application.routes.draw do
   get 'materials/create'
   get 'materials/index'
 
-  #get 'students/new'
+
   get '/students/search'  => 'students#search'
   get '/students/course_info' => 'students#course_info'
   post '/students/search_submit' => 'students#search_submit'
   get '/students/search_submit' => 'students#search'
-  #get 'students/:id/edit' => 'students#edit'
-  #post 'students/:id' => 'students#update'
-  # get 'student/new'
-  # get 'student/create'
+  get '/students/course_history' => 'students#course_history'
 
   get '/courses/list_courses' => 'courses#list_courses'
   get '/courses/content' => 'courses#content'
@@ -61,6 +59,9 @@ Rails.application.routes.draw do
   post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
   get '/admins/manage_course/edit_course/:id' => 'admins#edit_course', as: :edit_admin_course
   patch '/admins/edit_admin_course_save/:id' => 'admins#edit_admin_course_save'
+
+
+
 
   # get 'signup' => ''
 

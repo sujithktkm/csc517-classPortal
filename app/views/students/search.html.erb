@@ -1,4 +1,6 @@
 <%= bootstrap_form_tag url: students_search_submit_path(:student_id => params[:student_id]), method: 'search_submit'  do |f| %>
     <%= f.text_field :searchbox, label: "Enter search string" %>
-<%= f.submit 'Search' %>
+<%= f.submit 'Search', :class => 'btn btn-success'%>  &nbsp   <%= link_to "Back", root_path, :class => 'btn btn-info'%>
+
 <% end %>
+
