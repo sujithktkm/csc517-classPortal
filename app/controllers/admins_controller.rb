@@ -61,7 +61,7 @@ class AdminsController < ApplicationController
       flash[:success] = 'Admin deleted successfully!'
       redirect_to(:action => 'manage_admin')
     else
-      flash[:danger] = 'Cannot delete Super Admin!!'
+      flash[:danger] = 'Unauthorized!'
       redirect_to(:action => 'manage_admin')
     end
   end

@@ -39,7 +39,6 @@ class GradesController < ApplicationController
 
   def students_list
     @students = Student.all
-
     # @students = Student.joins(:student_enrollments).where('student_enrollments.status = :status AND student_enrollments.course_id = :courseid', :status => 'ENROLLED', :courseid => params[:course_id].to_i)
     # debugger
   end

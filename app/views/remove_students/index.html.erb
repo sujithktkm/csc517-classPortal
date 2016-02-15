@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <table class="table" width="100&">
+    <tr>
+      <td class="col-xs-1">Student ID</td>
+      <td class="col-xs-1">Student name</td>
+      <td class="col-xs-1">Student email</td>
+      <td class="col-xs-1">Grade</td>
+      <td class="col-xs-1">Current Status</td>
+      <td class="col-xs-1">Action</td>
+    </tr>
+    <% @studentlist.each do |s| %>
+        <tr>
+          <td class="col-xs-1"><%= s.id %></td>
+          <td class="col-xs-1"><%= s.name %></td>
+          <td class="col-xs-1"><%= s.email %></td>
+          <td class="col-xs-1"><%= s.grade %></td>
+          <td class="col-xs-1"><%= s.status %></td>
+          <td class="col-xs-1"><%= link_to 'Remove', remove_students_destroy_path(:student_id => s.id, :course_id => params[:course_id]), :class => 'btn btn-danger' %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+<%= link_to 'Back', courses_list_courses_path(:course_id => params[:course_id]), :class => 'btn btn-info' %>

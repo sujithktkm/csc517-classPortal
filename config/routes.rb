@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'remove_students/index'
+
+  get 'remove_students/destroy'
+
   post 'enrollments/create'
   delete 'enrollments/destroy'
   get '/enrollments/index'
