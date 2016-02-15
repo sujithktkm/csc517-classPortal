@@ -1,0 +1,17 @@
+<% if @Admins %>
+    <h3>List of Admins</h3><br/>
+    <table class="table">
+      <tr>
+        <th class="col-md-1">Name</th>
+        <th class="col-md-1"></th>
+      </tr>
+      <% @Admins.each do |admin| %>
+          <tr>
+            <td><%= admin.name %></td>
+            <td><%= link_to 'View details', view_admin_path(admin), :class => 'btn btn-success' %></td>
+            <td><%= link_to 'Delete', delete_admin_path(admin), :class => 'btn btn-warning' %></td>
+          </tr>
+      <% end %>
+    </table>
+    <%= link_to 'Create new Admin', '/admins/manage_admin/create_admin', :class => 'btn btn-info' %>
+<% end %>

@@ -1,0 +1,16 @@
+<ul class="list-group">
+  <li class="list-group-item">Course Number:   <%= @Course.coursenumber %></li>
+  <li class="list-group-item">Title:           <%= @Course.title %></li>
+  <li class="list-group-item">Description:     <%= @Course.description %></li>
+  <li class="list-group-item">Start Date:     <%= @Course.start_date %></li>
+  <li class="list-group-item">End Date:     <%= @Course.end_date %></li>
+  <li class="list-group-item">Status :      <% if @Course.status == true%>
+        Active
+    <% else %>
+        InActive
+    <% end %>
+  </li>
+  <li class="list-group-item">Instructor :  <%= Instructor.find(@Course.instructor_id).name%></li>
+</ul>
+
+<%= link_to 'Back', '/admins/manage_course', :class => 'btn btn-info' %>

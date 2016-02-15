@@ -22,10 +22,10 @@ class AdminsController < ApplicationController
     @Instructor=Instructor.new(instructor_params)
     if @Instructor.save
       flash[:success]='Instructor created successfully!'
-      redirect_to(:action => 'manage_admin')
+      redirect_to(:action => 'manage_user')
     else
       flash[:danger]='Instructor creation failed. Please try again!'
-      redirect_to(:action => 'manage_admin')
+      redirect_to(:action => 'create_instructor')
     end
 
   end
@@ -71,7 +71,6 @@ class AdminsController < ApplicationController
       flash[:success] = 'Admin deleted successfully!'
       redirect_to(:action => 'manage_admin')
     else
-
       flash[:danger] = 'Cannot delete Super Admin!!'
       redirect_to(:action => 'manage_admin')
     end
