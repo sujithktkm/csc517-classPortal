@@ -6,17 +6,21 @@
       <th class="col-xs-1">Course Description</th>
       <th class="col-xs-1">Start Date</th>
       <th class="col-xs-1">End Date</th>
+      <th class="col-xs-1">Instructor Name</th>
+      <th class="col-xs-1">Course Status</th>
     </tr>
     <% @courses.each do |c| %>
         <tr>
           <!--info_course_path(c)-->
-          <td class="col-xs-1"><%= link_to c.coursenumber, students_course_info_path(:course_id => c.id), method: "get" %></td>
+          <td class="col-xs-1"><%= link_to c.coursenumber, students_course_info_path(:course_id => c.id), method: 'get' %></td>
           <td class="col-xs-1"><%= c.title %></td>
           <td class="col-xs-1"><%= c.description %></td>
           <td class="col-xs-1"><%= c.start_date %></td>
           <td class="col-xs-1"><%= c.end_date %></td>
+          <td class="col-xs-1"><%= c.name %></td>
+          <td class="col-xs-1"><%= c.status ? 'ACTIVE' : 'INACTIVE' %></td>
         </tr>
     <% end %>
   </table>
 </div>
- <%= link_to "Back", students_search_path, :class => 'btn btn-info'%>
+ <%= link_to 'Back', students_search_path, :class => 'btn btn-info'%>
