@@ -1,9 +1,0 @@
-<%= bootstrap_form_for(@New_admin,:url => url_for(:controller => 'admins', :action => 'create')) do |f| %>
-    <%= f.text_field :name, :placeholder => "Name" %>
-    <%= f.email_field :email, :placeholder => "Email" %>
-    <%= f.password_field :password, :placeholder => "Password" %>
-    <%= f.submit "Submit", class: "btn-submit" %>
-
-
-
-<% end %>
