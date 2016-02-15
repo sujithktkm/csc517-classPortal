@@ -17,7 +17,7 @@ class CoursepageMaterialsController < ApplicationController
 
   private
   def materials_params
-    params.require(:coursepage_material).permit(:title, :description, :type, :course_id)
+    params.require(:coursepage_material).permit(:title, :description, :material_type, :course_id)
   end
 
 end

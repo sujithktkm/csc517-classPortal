@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20160214184807) do
   enable_extension "plpgsql"
 
   create_table "coursepage_materials", force: :cascade do |t|
-    t.string   "title",         null: false
-    t.string   "description",   null: false
-    t.string   "material_type", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "title",       null: false
+    t.string   "description", null: false
+    t.string   "type",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "course_id"
   end
 
