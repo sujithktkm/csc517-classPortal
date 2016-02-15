@@ -41,25 +41,41 @@ class AdminsController < ApplicationController
 
   def edit_admin_course_save
     @Course = Course.find(params[:id])
-    @Course.update_attributes(course_params)
+
+    if @Course.update_attributes(course_params)
     flash[:success] = 'Course edit successful!'
     redirect_to(:action => 'manage_course')
-
+    else
+      flash[:success] = 'Countnt edit course!'
+      redirect_to(:action => 'manage_course')
+    end
   end
 
   def edit_admin_save
     @Admin = User.find(session[:user_id])
-    @Admin.update_attributes(admin_params)
+
+    if @Admin.update_attributes(admin_params)
     flash[:success] = 'Admin details updated successfully!'
     redirect_to(:action => 'manage_admin')
+    else
+      flash[:success] = 'Could not edit Admin!'
+      redirect_to(:action => 'manage_admin')
+    end
+
   end
 
   def delete_admin
     @user = User.find(params[:id])
-    if (@user.deletable?) && (params[:id].to_i != session[:user_id].to_i)
+    if (@user.deletable?)
+      if(params[:id].to_i != session[:user_id].to_i)
       @user.destroy
       flash[:success] = 'Admin deleted successfully!'
       redirect_to(:action => 'manage_admin')
+      else
+        flash[:danger] = 'Cannot delete Admin!!'
+        redirect_to(:action => 'manage_admin')
+      end
+
     else
       flash[:danger] = 'Unauthorized!'
       redirect_to(:action => 'manage_admin')
@@ -72,16 +88,25 @@ class AdminsController < ApplicationController
 
   def create_course_save
     @Course = Course.new(course_params)
-    @Course.save
+    if @Course.save
     flash[:success] = 'Course creation successful!'
     redirect_to(:action => 'manage_course')
+    else
+      flash[:success] = 'Could not create course'
+      redirect_to(:action => 'manage_course')
+      end
 
   end
 
   def delete_user
-    User.find(params[:id]).destroy
+    if User.find(params[:id]).destroy
     flash[:success] = 'User deleted successfully!'
     redirect_to(:action => 'manage_user')
+    else
+      flash[:success] = 'Could not delete User!'
+      redirect_to(:action => 'manage_user')
+    end
+
   end
 
   def create_admin
@@ -104,9 +129,14 @@ class AdminsController < ApplicationController
 
   def delete_course
     @Course = Course.find(params[:id])
-    @Course.destroy
+    if @Course.destroy
     flash[:success] = 'Course deleted successfully!'
     redirect_to(:action => 'manage_course')
+    else
+      flash[:success] = 'Could not delete course!'
+      redirect_to(:action => 'manage_course')
+    end
+
 
   end
 
