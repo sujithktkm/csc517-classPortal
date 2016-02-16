@@ -61,13 +61,14 @@ Rails.application.routes.draw do
   get '/admins/create_instructor' => 'admins#create_instructor'
   post '/admins/create_instructor_save' =>'admins#create_instructor_save'
   get '/admins/manage_course/view_course/:id' => 'admins#view_course', as: :view_course
+  get '/admins/manage_course/activate_course/:id' => 'admins#activate_course', as: :activate_course
   get '/admins/manage_course/delete_course/:id' => 'admins#delete_course', as: :delete_course
   get '/admins/manage_course/create_course' => 'admins#create_course'
   post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
   get '/admins/manage_course/edit_course/:id' => 'admins#edit_course', as: :edit_admin_course
   patch '/admins/edit_admin_course_save/:id' => 'admins#edit_admin_course_save'
-  get '/admins/manage_requests' => 'admins#admin_request'
-  get '/admins/accept_requests/:id' => 'admins#admin_accept', as: :admin_accept
+  get '/admins/admin_request' => 'admins#admin_request'
+  get '/admins/accept_request/:id' => 'admins#admin_accept', as: :admin_accept
   get '/course/inactivate_request/:id' => 'courses#inactive_request', as: :course_inactivate_request
 
 
