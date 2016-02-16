@@ -1,0 +1,19 @@
+<% if @request %>
+    <h3>Course Inactivate Requests</h3><br/>
+    <table class="table">
+      <tr>
+        <th class="col-md-1">Course title</th>
+        <th class="col-md-1">Instructor Name</th>
+        <th class="col-md-1"></th>
+
+      </tr>
+      <% @request.each do |course| %>
+          <tr>
+            <td><%= course.title %></td>
+            <td><%= Instructor.find(course.instructor_id).name %></td>
+            <td><%= link_to 'Accept Request', admin_accept_path(course), :class => 'btn btn-success' %></td>
+
+          </tr>
+      <% end %>
+    </table>
+<% end %>

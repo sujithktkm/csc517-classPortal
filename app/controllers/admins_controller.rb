@@ -4,6 +4,24 @@ class AdminsController < ApplicationController
     @Admins=Admin.all
   end
 
+  def admin_request
+
+    @request = Course.where("instructor_req = ? and admin_res = ?",true,false)
+
+  end
+
+  def admin_accept
+    @course = Course.find(params[:id])
+    if @course.update_attributes(:admin_res => true, :status => false)
+      flash[:success]='Course is inactivated'
+      redirect_to(:action => 'admin_request')
+    else
+      flash[:success]='Course could not be inactivated'
+      redirect_to(:action => 'admin_request')
+    end
+
+  end
+
   def manage_user
     @Students=Student.all
     @Instructors=Instructor.where("is_activeuser=?",true)
