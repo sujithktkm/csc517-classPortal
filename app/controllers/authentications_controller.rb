@@ -9,6 +9,10 @@ class AuthenticationsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       if @user.is_activeuser
         session[:user_id] = @user.id
+        @courses = Course.where('end_date < ?', Date.today)
+        @courses.each do |c|
+          c.update_attribute(:status, nil)
+        end
         flash[:success] = 'Login Successful!'
         redirect_to root_path
       else
