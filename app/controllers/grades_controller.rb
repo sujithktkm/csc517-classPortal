@@ -1,5 +1,5 @@
 class GradesController < ApplicationController
-  before_action :students_list
+  before_action :instructor_admin_access, only: [:edit, :update]
   before_action :enrollmentid, only: [:edit]
 
   def show

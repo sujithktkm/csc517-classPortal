@@ -1,4 +1,5 @@
 class CoursepageMaterialsController < ApplicationController
+  before_action :instructor_admin_access, only: [:new, :create]
   def new
     @coursepage_material = CoursepageMaterial.new
   end

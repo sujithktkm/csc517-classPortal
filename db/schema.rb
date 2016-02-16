@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215215540) do
+ActiveRecord::Schema.define(version: 20160216014119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20160215215540) do
     t.datetime "updated_at",                     null: false
     t.boolean  "is_activeuser",   default: true
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "coursepage_materials", "courses"
   add_foreign_key "courses", "users", column: "instructor_id"
