@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
-  skip_before_action :require_userauth
+  skip_before_action :require_userauth, only: [:create]
 
-  before_action :require_userauth, only: [:edit]
+  before_action :student_access, only: [:edit, :update, :show, :search, :search_submit, :course_info, :course_history]
 
   def new
     @student = Student.new

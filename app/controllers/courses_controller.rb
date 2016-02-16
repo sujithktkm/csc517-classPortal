@@ -1,6 +1,5 @@
 class CoursesController < ApplicationController
-  skip_before_action :require_userauth
-  before_action :require_userauth
+  before_action :require_userauth, :instructor_access
 
   def show
     @course = Course.find_by_id(params[:id])
