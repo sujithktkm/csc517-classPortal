@@ -4,9 +4,6 @@ class AdminsController < ApplicationController
     @Admins=Admin.all
   end
 
-  def manage_course
-  end
-
   def manage_user
     @Students=Student.all
     @Instructors=Instructor.all
@@ -114,8 +111,8 @@ class AdminsController < ApplicationController
   end
 
   def manage_course
-    @Course = Course.all
-
+    @current_courses = Course.where(:status => true)
+    @past_courses = Course.where(:status => false)
   end
 
   def view_admin

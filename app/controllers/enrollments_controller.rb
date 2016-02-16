@@ -3,12 +3,14 @@ class EnrollmentsController < ApplicationController
   def index
     unless params[:course_id].nil?
       @users = Student.joins(:enrollment_requests).where enrollment_requests: {course_id: params[:course_id].to_i, finished: false}
-      @enrollment = EnrollmentRequest.where course_id: params[:course_id].to_i, is_fulfilled: false
+      @enrollment = EnrollmentRequest.where course_id: params[:course_id].to_i, finished: false
     end
   end
 
   def create
-    @enrollmentrequest = EnrollmentRequest.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id])
+    @enrollmentrequest = EnrollmentRequest.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |e|
+      e.finished = false
+    end
     @studentenrollment = StudentEnrollment.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |s|
       s.status = 'PENDING'
       s.grade = '0'
@@ -28,11 +30,19 @@ class EnrollmentsController < ApplicationController
         h.role = 'Student'
         h.grade = '0'
       end
-      redirect_to enrollments_index_path(:course_id => course_id)
+      if @user_authenticated.type == 'Instructor'
+        redirect_to enrollments_index_path(:course_id => course_id)
+      elsif @user_authenticated.type == 'Admin'
+        redirect_to admins_manage_course_path
+      end
     elsif enrollments_update == 'false'
       enrollmentrequest.update_attribute(:finished, nil)
       studentenrollment.update_attributes(:status => 'UNENROLLED', :grade => nil)
-      redirect_to enrollments_index_path(:course_id => course_id)
+      if @user_authenticated.type == 'Instructor'
+        redirect_to enrollments_index_path(:course_id => course_id)
+      elsif @user_authenticated.type == 'Admin'
+        redirect_to admins_manage_course_path
+      end
     end
   end
 

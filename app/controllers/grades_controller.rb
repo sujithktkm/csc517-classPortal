@@ -25,7 +25,11 @@ class GradesController < ApplicationController
       history.update_attribute(:grade, grades_params[:grade])
       # session[:material_id] = @student.id
       flash[:success] = 'Grade updated!'
-      redirect_to courses_list_courses_path
+      if @user_authenticated.type == 'Instructor'
+        redirect_to courses_list_courses_path
+      else
+        redirect_to admins_manage_course_path
+      end
     else
       flash[:danger] = 'Cannot update grade. Please try again'
       redirect_to grades_edit_path
