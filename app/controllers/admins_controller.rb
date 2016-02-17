@@ -209,6 +209,22 @@ class AdminsController < ApplicationController
     end
   end
 
+  def admin_request
+    @request = Course.where("instructor_req = ? AND admin_res = ?", true, false)
+  end
+
+  def admin_accept
+    @course = Course.find(params[:id])
+    if @course
+      @course.update_attributes(:status => false, :admin_res => true)
+      flash[:success]='Course inactivated!'
+      redirect_to(:action => 'admin_request')
+    else
+      flash[:danger]='Course could not be inactivated!'
+      redirect_to(:action => 'admin_request')
+    end
+  end
+
   private
   def instructor_params
     params.require(:instructor).permit(:name, :email, :password)
