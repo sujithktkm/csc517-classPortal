@@ -43,7 +43,8 @@ class StudentsController < ApplicationController
 
   # Display my courses
   def show
-    @courseinfo = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled', :studentid => session[:user_id], :enrolled => "ENROLLED")
+    @courseinfo_active = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled AND "courses"."status" = :status', :studentid => session[:user_id], :enrolled => "ENROLLED", :status => true)
+    @courseinfo_inactive = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled AND "courses"."status" = :status', :studentid => session[:user_id], :enrolled => "ENROLLED", :status => false)
   end
 
 
