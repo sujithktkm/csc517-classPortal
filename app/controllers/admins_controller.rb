@@ -1,6 +1,22 @@
 class AdminsController < ApplicationController
   before_action :admin_access
 
+  def admin_inactivate_reqs
+    @request = Course.where("instructor_req=? and admin_res = ?",true,false)
+
+  end
+  def admin_inactivate_reqs_accept
+    @course = Course.find_by_id(params[:id])
+    if @course.update_attribute(:admin_res, true)
+      flash[:success]='Course inactivation request Accepted'
+      redirect_to(:action => 'manage_course')
+    else
+      flash[:success]='Could not accept inactivation request'
+      redirect_to(:action => 'manage_course')
+
+    end
+  end
+
   def manage_admin
     @Admins=Admin.all
   end
