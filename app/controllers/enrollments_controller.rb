@@ -1,5 +1,7 @@
 class EnrollmentsController < ApplicationController
-  before_action :instructor_access, only: [:index, :update]
+  before_action :instructor_admin_access, only: [:index, :update, :destroy]
+  before_action :student_access, only: [:create]
+
   def index
     unless params[:course_id].nil?
       @users = Student.joins(:enrollment_requests).where enrollment_requests: {course_id: params[:course_id].to_i, finished: false}

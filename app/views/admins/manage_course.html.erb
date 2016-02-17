@@ -17,6 +17,7 @@
             <td><%= link_to 'Edit details', edit_admin_course_path(course), :class => 'btn btn-warning' %></td>
             <td><%= link_to 'Add Content', coursepage_materials_new_path(:course_id => course.id), method: 'get', class: 'btn btn-info' %></td>
             <td><%= link_to 'Post Grades', grades_students_list_path(:course_id => course.id), method: 'get', class: 'btn btn-info' %></td>
+            <td><%= link_to 'Enrollment Requests', enrollments_index_path(:course_id => course.id), method: 'get', class: 'btn btn-info' %></td>
             <td><%= link_to 'Delete', delete_course_path(course), :class => 'btn btn-danger' %></td>
           </tr>
       <% end %>

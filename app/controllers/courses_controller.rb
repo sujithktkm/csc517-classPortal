@@ -1,6 +1,5 @@
 class CoursesController < ApplicationController
-  skip_before_action :require_userauth
-  before_action :require_userauth
+  before_action :require_userauth, :instructor_access
 
   def show
     @course = Course.find_by_id(params[:id])
@@ -8,7 +7,8 @@ class CoursesController < ApplicationController
   end
 
   def list_courses
-    @courseList = Course.where('instructor_id = :instructorid', :instructorid => @user_authenticated.id)
+    @courseList_current = Course.where('instructor_id = :instructorid AND status = :status', :instructorid => @user_authenticated.id, :status => true)
+    @courseList_past = Course.where('instructor_id = :instructorid AND status = :status', :instructorid => @user_authenticated.id, :status => false)
   end
 
   def inactive_request

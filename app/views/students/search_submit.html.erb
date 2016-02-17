@@ -12,7 +12,11 @@
     <% @courses.each do |c| %>
         <tr>
           <!--info_course_path(c)-->
-          <td class="col-xs-1"><%= link_to c.coursenumber, students_course_info_path(:course_id => c.id), method: 'get' %></td>
+          <% if c.status %>
+              <td class="col-xs-1"><%= link_to c.coursenumber, students_course_info_path(:course_id => c.id), method: 'get' %></td>
+          <% elsif !c.status %>
+              <td class="col-xs-1"><%= c.coursenumber %></td>
+          <% end %>
           <td class="col-xs-1"><%= c.title %></td>
           <td class="col-xs-1"><%= c.description %></td>
           <td class="col-xs-1"><%= c.start_date %></td>
@@ -23,4 +27,4 @@
     <% end %>
   </table>
 </div>
- <%= link_to 'Back', students_search_path, :class => 'btn btn-info'%>
+<%= link_to 'Back', students_search_path, :class => 'btn btn-info' %>

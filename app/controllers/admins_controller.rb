@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
-  def manage_admin
+  before_action :admin_access
 
+  def manage_admin
     @Admins=Admin.all
   end
 
@@ -24,8 +25,7 @@ class AdminsController < ApplicationController
 
   def manage_user
     @Students=Student.all
-    @Instructors=Instructor.where("is_activeuser=?", true)
-
+    @Instructors=Instructor.where("is_activeuser=?",true)
   end
 
   def edit_admin
@@ -33,7 +33,6 @@ class AdminsController < ApplicationController
   end
 
   def create_instructor_save
-
     @Instructor=Instructor.new(instructor_params)
     if @Instructor.save
       flash[:success]='Instructor created successfully!'
@@ -42,7 +41,6 @@ class AdminsController < ApplicationController
       flash[:danger]='Instructor creation failed. Please try again!'
       redirect_to(:action => 'create_instructor')
     end
-
   end
 
   def create_instructor
@@ -51,7 +49,6 @@ class AdminsController < ApplicationController
 
   def edit_course
     @Course = Course.find(params[:id])
-
   end
 
   def edit_admin_course_save
@@ -76,7 +73,6 @@ class AdminsController < ApplicationController
       flash[:success] = 'Could not edit Admin!'
       redirect_to(:action => 'manage_admin')
     end
-
   end
 
   def delete_admin
@@ -90,7 +86,6 @@ class AdminsController < ApplicationController
         flash[:danger] = 'Cannot delete Admin!!'
         redirect_to(:action => 'manage_admin')
       end
-
     else
       flash[:danger] = 'Unauthorized!'
       redirect_to(:action => 'manage_admin')
@@ -103,14 +98,14 @@ class AdminsController < ApplicationController
 
   def create_course_save
     @Course = Course.new(course_params)
+
     if @Course.save
       flash[:success] = 'Course creation successful!'
       redirect_to(:action => 'manage_course')
     else
       flash[:success] = 'Could not create course'
       redirect_to(:action => 'manage_course')
-    end
-
+      end
   end
 
   def delete_user
@@ -118,82 +113,57 @@ class AdminsController < ApplicationController
 
     if @user.type == 'Student'
       @student = @user
-
-      @history = History.where("user_id = ?", params[:id])
+      @history = History.where("user_id = ?",params[:id])
       @history.each do |history|
         history.destroy
       end
-
-      @studentenrollments = StudentEnrollment.where("student_id=?", params[:id])
+      @studentenrollments = StudentEnrollment.where("student_id=?",params[:id])
       @studentenrollments.each do |studentenrollments|
         studentenrollments.destroy
       end
-
-      @enrollrequest = EnrollmentRequest.where("student_id=?", params[:id])
+      @enrollrequest = EnrollmentRequest.where("student_id=?",params[:id])
       @enrollrequest.each do |enrollrequest|
         enrollrequest.destroy
       end
-
       if @user.destroy
         flash[:success] = 'Student deleted successfully!'
-
       else
-
         flash[:danger] = 'Could not delete student!'
-
       end
     end
 
-
     if @user.type == 'Instructor'
       @instructor = @user
-
-      if Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id], Date.today, Date.today)
-        @course = Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id], Date.today, Date.today)
+      if Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id],Date.today,Date.today)
+        @course = Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id],Date.today,Date.today)
         @course.each do |course|
-
-          @history = History.where("course_id=?", course.id)
-          @history.each do |history|
-            history.destroy
+            @history = History.where("course_id=?",course.id)
+            @history.each do |history|
+              history.destroy
+            end
+            @material = CoursepageMaterial.where("course_id=?",course.id)
+            @material.each do |material|
+              material.destroy
+            end
+            @enrollrequest = EnrollmentRequest.where("course_id=?",course.id)
+            @enrollrequest.each do |enrollrequest|
+              enrollrequest.destroy
+            end
+            @studentenrollments = StudentEnrollment.where("course_id=?",course.id)
+            @studentenrollments.each do |studentenrollments|
+              studentenrollments.destroy
+            end
+             course.destroy
           end
-
-          @material = CoursepageMaterial.where("course_id=?", course.id)
-          @material.each do |material|
-            material.destroy
-          end
-
-          @enrollrequest = EnrollmentRequest.where("course_id=?", course.id)
-          @enrollrequest.each do |enrollrequest|
-            enrollrequest.destroy
-          end
-
-          @studentenrollments = StudentEnrollment.where("course_id=?", course.id)
-          @studentenrollments.each do |studentenrollments|
-            studentenrollments.destroy
-          end
-
-
-          course.destroy
-
-
-        end
       end
 
       if @instructor.update_attribute(:is_activeuser, false)
         flash[:success] = 'Instructor deleted successfully!'
-
-
       else
         flash[:danger] = 'Couldnot delete Instructor!'
-
-
       end
-
-
     end
     redirect_to(:action => 'manage_user')
-
-
   end
 
   def create_admin
@@ -212,7 +182,6 @@ class AdminsController < ApplicationController
 
   def view_course
     @Course = Course.find(params[:id])
-
   end
 
   def delete_course
@@ -239,18 +208,13 @@ class AdminsController < ApplicationController
       studentenrollments.destroy
     end
 
-
     if course.destroy
-
-      flash[:success] = 'Course deleted successfully!'
-      redirect_to(:action => 'manage_course')
+        flash[:success] = 'Course deleted successfully!'
+        redirect_to(:action => 'manage_course')
     else
       flash[:error] = 'Could not delete course!'
       redirect_to(:action => 'manage_course')
-
     end
-
-
   end
 
   def create
@@ -273,18 +237,15 @@ class AdminsController < ApplicationController
   private
   def instructor_params
     params.require(:instructor).permit(:name, :email, :password)
-
   end
 
   def admin_params
     params.require(:admin).permit(:name, :email, :password)
-
   end
 
   def admin_edit_params
     params.require(:admin).permit(:name, :email, :password)
     #params.require(:admin).permit(:name)
-
   end
 
   def course_params
