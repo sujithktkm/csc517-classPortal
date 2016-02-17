@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   get 'remove_students/index'
-
   get 'remove_students/destroy'
 
   post 'enrollments/create'
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
   get '/courses/content' => 'courses#content'
 
   resources :students, only: [:new, :create, :edit, :update, :show]
+  resources :instructors, only: [:edit, :update]
   resources :courses
 
 

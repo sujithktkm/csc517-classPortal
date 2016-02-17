@@ -1,7 +1,8 @@
 class StudentsController < ApplicationController
   skip_before_action :require_userauth, only: [:new, :create]
 
-  before_action :student_access, only: [:edit, :update, :show, :search, :search_submit, :course_info, :course_history]
+  before_action :instructor_student_access, only: [:edit, :update]
+  before_action :student_access, only: [:show, :search, :search_submit, :course_info, :course_history]
 
   def new
     @student = Student.new
@@ -36,9 +37,9 @@ class StudentsController < ApplicationController
       flash[:success] = 'Updated profile!'
       redirect_to root_path
     else
+      flash[:danger] = 'Cannot edit profile details!'
       render 'edit'
     end
-
   end
 
   # Display my courses
@@ -84,7 +85,7 @@ class StudentsController < ApplicationController
   end
 
   def course_notification
-    @course_notification = CoursepageMaterial.where('course_id = :courseid',:courseid => params[:course_id] )
+    @course_notification = CoursepageMaterial.where('course_id = :courseid', :courseid => params[:course_id])
   end
 
 
