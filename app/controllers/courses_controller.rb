@@ -11,4 +11,18 @@ class CoursesController < ApplicationController
     @courseList_past = Course.where('instructor_id = :instructorid AND status = :status', :instructorid => @user_authenticated.id, :status => false)
   end
 
+  def course_inactivate_request
+    @course = Course.find_by_id(params[:id])
+    if @course.update_attribute(:instructor_req, true)
+            flash[:success]='Course inactivation request sent'
+            redirect_to(course_path)
+    else
+        flash[:success]='Could not send course inactivation request'
+        redirect_to(course_path)
+
+      end
+
+
+  end
+
 end

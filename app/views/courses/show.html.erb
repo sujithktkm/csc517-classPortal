@@ -3,4 +3,6 @@
   <li><li style="padding: 2px"><%= link_to 'Post Grades', grades_students_list_path(:course_id => params[:id]), method: 'get', class: 'btn btn-info' %></li></li>
   <li><li style="padding: 2px"><%= link_to 'Enrollment requests', enrollments_index_path(:course_id => params[:id]), method: 'get', class: 'btn btn-info' %></li></li>
   <li><li style="padding: 2px"><%= link_to 'Remove Students', remove_students_index_path(:course_id => params[:id]), method: 'get', class: 'btn btn-info' %></li></li>
+  <li><li style="padding: 2px"><%= link_to 'Inactivate Course', course_inactivate_request_path(:course_id => params[:id]), method: 'get', class: 'btn btn-info' %></li></li>
+
 </ul>

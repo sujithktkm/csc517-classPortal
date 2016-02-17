@@ -68,7 +68,9 @@ Rails.application.routes.draw do
   get '/admins/manage_course/edit_course/:id' => 'admins#edit_course', as: :edit_admin_course
   patch '/admins/edit_admin_course_save/:id' => 'admins#edit_admin_course_save'
 
-
+  get '/admins/admin_inactivate_reqs' => 'admins#admin_inactivate_reqs'
+  get '/admins/admin_inactivate_reqs_accept/:id' => 'admins#admin_inactivate_reqs_accept',as: :admin_inactivate_reqs_accept
+  get '/courses/course_inactivate_request/:id' => 'courses#course_inactivate_request',as: :course_inactivate_request
 
 
   # get 'signup' => ''
