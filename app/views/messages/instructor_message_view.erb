@@ -8,8 +8,13 @@
     </tr>
     <% @studentlist.each do |s| %>
         <tr>
-          <td class="col-xs-1"><%= s.id %></td>
+          <td class="col-xs-1"><%= User.find(s.id).name %></td>
+          <% if Message.where("student_id=? and instructor_id=?",s.id,session[:user_id]).last %>
+
           <td class="col-xs-1"><%= Message.where("student_id=? and instructor_id=?",s.id,session[:user_id]).last.content %></td>
+             <% else %>
+              <td class="col-xs-1"> </td>
+              <%end%>
 
           <td class="col-xs-1"><%= link_to 'Send Message', instructor_message_send_path(s) ,:class => 'btn btn-danger' %></td>
         </tr>
