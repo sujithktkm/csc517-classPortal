@@ -1,6 +1,6 @@
 class EnrollmentsController < ApplicationController
-  before_action :instructor_admin_access, only: [:index, :update, :destroy]
-  before_action :student_access, only: [:create]
+  before_action :instructor_admin_access, only: [:index, :update]
+  before_action :student_access, only: [:create,:destroy]
 
   def index
     unless params[:course_id].nil?
