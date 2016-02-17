@@ -15,6 +15,10 @@ class RemoveStudentsController < ApplicationController
     history = History.where(course_id: params[:course_id], user_id: params[:student_id]).first
     history.destroy
 
-    redirect_to remove_students_index_path(:course_id => params[:course_id])
+    if @user_authenticated.type == 'Instructor'
+      redirect_to remove_students_index_path(:course_id => params[:course_id])
+    elsif @user_authenticated.type == 'Admin'
+      redirect_to admins_manage_course_path
+    end
   end
 end

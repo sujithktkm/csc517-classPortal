@@ -20,4 +20,8 @@
     <% end %>
   </table>
 </div>
-<%= link_to 'Back', courses_list_courses_path(:course_id => params[:course_id]), :class => 'btn btn-info' %>
+<% if @user_authenticated.type == 'Instructor' %>
+  <%= link_to 'Back', courses_list_courses_path(:course_id => params[:course_id]), :class => 'btn btn-info' %>
+<% elsif @user_authenticated.type == 'Admin' %>
+    <%= link_to 'Back', admins_manage_course_path, :class => 'btn btn-info' %>
+<% end %>
