@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post '/students/search_submit' => 'students#search_submit'
   get '/students/search_submit' => 'students#search'
   get '/students/course_history' => 'students#course_history'
+  get '/students/course_notification' => 'students#course_notification'
 
   get '/courses/list_courses' => 'courses#list_courses'
   get '/courses/content' => 'courses#content'

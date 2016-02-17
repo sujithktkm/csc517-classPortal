@@ -1,0 +1,32 @@
+<div class="panel panel-default" xmlns="http://www.w3.org/1999/html">
+  <table class="table" width="100&">
+    <tr>
+      <th class="col-xs-1"><strong/>Notification/Deadline</th>
+      <th class="col-xs-1"><strong/>Title</th>
+      <th class="col-xs-1"><strong/>Description</th>
+      <th class="col-xs-1"><strong/>Posted on</th>
+      <!--<td class="col-xs-1"><strong/>End Date</td>-->
+      <!--<td class="col-xs-1"><strong/>Grade</td>-->
+      <!--<td class="col-xs-1"><strong/>Instructor</td>-->
+    </tr>
+    <% @course_notification.each do |c| %>
+        <tr>
+          <td class="col-xs-1">
+            <%if c.material_type == '1'  %>
+             <strong/> <p style='color: #B00100'>  Deadline</p>
+            <%else%>
+                <strong/> <p style ='color: blue'>Notification</p>
+            <%end%>
+          </td>
+
+
+          <td class="col-xs-1"><%= c.title %></td>
+          <td class="col-xs-1"><%= c.description %></td>
+          <td class="col-xs-1"><%= c.created_at%></td>
+
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= link_to "Back", root_path, :class => 'btn btn-info'%>

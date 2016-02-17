@@ -1,3 +1,4 @@
+<h3>List of current/future courses</h3><br/>
 <div class="panel panel-default">
   <table class="table" width="100&">
     <tr>
@@ -6,15 +7,43 @@
       <td class="col-xs-1">Course Description</td>
       <td class="col-xs-1">Start Date</td>
       <td class="col-xs-1">End Date</td>
+      <td class="col-xs-1">Course Status</td>
     </tr>
-    <% @courseList.each do |c| %>
+    <% @courseList_current.each do |c| %>
         <tr>
           <td class="col-xs-1"><%= link_to c.coursenumber, course_path(c) %></td>
           <td class="col-xs-1"><%= c.title %></td>
           <td class="col-xs-1"><%= c.description %></td>
           <td class="col-xs-1"><%= c.start_date %></td>
           <td class="col-xs-1"><%= c.end_date %></td>
+          <td class="col-xs-1"><%= c.status ? 'ACTIVE' : 'INACTIVE' %></td>
         </tr>
     <% end %>
   </table>
 </div>
+
+
+<h3>List of past courses</h3><br/>
+<div class="panel panel-default">
+  <table class="table" width="100&">
+    <tr>
+      <td class="col-xs-1">Course ID</td>
+      <td class="col-xs-1">Course Title</td>
+      <td class="col-xs-1">Course Description</td>
+      <td class="col-xs-1">Start Date</td>
+      <td class="col-xs-1">End Date</td>
+      <td class="col-xs-1">Course Status</td>
+    </tr>
+    <% @courseList_past.each do |c| %>
+        <tr>
+          <td class="col-xs-1"><%= c.coursenumber %></td>
+          <td class="col-xs-1"><%= c.title %></td>
+          <td class="col-xs-1"><%= c.description %></td>
+          <td class="col-xs-1"><%= c.start_date %></td>
+          <td class="col-xs-1"><%= c.end_date %></td>
+          <td class="col-xs-1"><%= c.status ? 'ACTIVE' : 'INACTIVE' %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+

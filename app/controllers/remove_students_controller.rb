@@ -1,5 +1,4 @@
 class RemoveStudentsController < ApplicationController
-
   before_action :instructor_admin_access
 
   def index
