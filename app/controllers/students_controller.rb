@@ -65,7 +65,7 @@ class StudentsController < ApplicationController
       @courses = Course.all
     else
       #@courses =  Course.joins('INNER JOIN "course_instructors" ON "course_instructors"."course_id" = "courses"."id" INNER JOIN "users" ON "users"."id" = "course_instructors"."instructor_id" AND "users"."type" IN ('+ "'Instructor'" + ')').where('(courses.coursenumber LIKE :textbox ' + ' OR courses.title LIKE :textbox' + ' OR courses.description LIKE :textbox)' + ' OR users.name LIKE :textbox', :textbox => textbox)
-      @courses = Course.select('"courses".*, "users"."name"').joins('INNER JOIN "users" ON "users"."id" = "courses"."instructor_id"').where('("courses"."coursenumber" LIKE :textbox OR "courses"."title" LIKE :textbox OR "courses"."description" LIKE :textbox OR "users"."name" LIKE :textbox) AND "courses"."status" IN (:status)', :textbox => textbox, :status => status_bool)
+      @courses = Course.select('"courses".*, "users"."name"').joins('INNER JOIN "users" ON "users"."id" = "courses"."instructor_id"').where('("courses"."coursenumber" ILIKE :textbox OR "courses"."title" ILIKE :textbox OR "courses"."description" ILIKE :textbox OR "users"."name" ILIKE :textbox) AND "courses"."status" IN (:status)', :textbox => textbox, :status => status_bool)
       # Add instructor name search**************
     end
 
