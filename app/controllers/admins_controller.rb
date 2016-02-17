@@ -2,16 +2,17 @@ class AdminsController < ApplicationController
   before_action :admin_access
 
   def admin_inactivate_reqs
-    @request = Course.where("instructor_req=? and admin_res = ?",true,false)
+    @request = Course.where("instructor_req=? and admin_res = ?", true, false)
 
   end
+
   def admin_inactivate_reqs_accept
     @course = Course.find_by_id(params[:id])
-    if @course.update_attribute(:admin_res, true)
+    if @course.update_attributes(:status => false, :admin_res => true)
       flash[:success]='Course inactivation request Accepted'
       redirect_to(:action => 'manage_course')
     else
-      flash[:success]='Could not accept inactivation request'
+      flash[:danger]='Could not accept inactivation request'
       redirect_to(:action => 'manage_course')
 
     end
@@ -23,7 +24,7 @@ class AdminsController < ApplicationController
 
   def manage_user
     @Students=Student.all
-    @Instructors=Instructor.where("is_activeuser=?",true)
+    @Instructors=Instructor.where("is_activeuser=?", true)
   end
 
   def edit_admin
@@ -53,8 +54,8 @@ class AdminsController < ApplicationController
     @Course = Course.find(params[:id])
 
     if @Course.update_attributes(course_params)
-    flash[:success] = 'Course edit successful!'
-    redirect_to(:action => 'manage_course')
+      flash[:success] = 'Course edit successful!'
+      redirect_to(:action => 'manage_course')
     else
       flash[:success] = 'Countnt edit course!'
       redirect_to(:action => 'manage_course')
@@ -65,8 +66,8 @@ class AdminsController < ApplicationController
     @Admin = User.find(session[:user_id])
 
     if @Admin.update_attributes(admin_params)
-    flash[:success] = 'Admin details updated successfully!'
-    redirect_to(:action => 'manage_admin')
+      flash[:success] = 'Admin details updated successfully!'
+      redirect_to(:action => 'manage_admin')
     else
       flash[:success] = 'Could not edit Admin!'
       redirect_to(:action => 'manage_admin')
@@ -76,10 +77,10 @@ class AdminsController < ApplicationController
   def delete_admin
     @user = User.find(params[:id])
     if (@user.deletable?)
-      if(params[:id].to_i != session[:user_id].to_i)
-      @user.destroy
-      flash[:success] = 'Admin deleted successfully!'
-      redirect_to(:action => 'manage_admin')
+      if (params[:id].to_i != session[:user_id].to_i)
+        @user.destroy
+        flash[:success] = 'Admin deleted successfully!'
+        redirect_to(:action => 'manage_admin')
       else
         flash[:danger] = 'Cannot delete Admin!!'
         redirect_to(:action => 'manage_admin')
@@ -98,12 +99,12 @@ class AdminsController < ApplicationController
     @Course = Course.new(course_params)
 
     if @Course.save
-    flash[:success] = 'Course creation successful!'
-    redirect_to(:action => 'manage_course')
+      flash[:success] = 'Course creation successful!'
+      redirect_to(:action => 'manage_course')
     else
       flash[:success] = 'Could not create course'
       redirect_to(:action => 'manage_course')
-      end
+    end
   end
 
   def delete_user
@@ -111,15 +112,15 @@ class AdminsController < ApplicationController
 
     if @user.type == 'Student'
       @student = @user
-      @history = History.where("user_id = ?",params[:id])
+      @history = History.where("user_id = ?", params[:id])
       @history.each do |history|
         history.destroy
       end
-      @studentenrollments = StudentEnrollment.where("student_id=?",params[:id])
+      @studentenrollments = StudentEnrollment.where("student_id=?", params[:id])
       @studentenrollments.each do |studentenrollments|
         studentenrollments.destroy
       end
-      @enrollrequest = EnrollmentRequest.where("student_id=?",params[:id])
+      @enrollrequest = EnrollmentRequest.where("student_id=?", params[:id])
       @enrollrequest.each do |enrollrequest|
         enrollrequest.destroy
       end
@@ -132,27 +133,27 @@ class AdminsController < ApplicationController
 
     if @user.type == 'Instructor'
       @instructor = @user
-      if Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id],Date.today,Date.today)
-        @course = Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id],Date.today,Date.today)
+      if Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id], Date.today, Date.today)
+        @course = Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id], Date.today, Date.today)
         @course.each do |course|
-            @history = History.where("course_id=?",course.id)
-            @history.each do |history|
-              history.destroy
-            end
-            @material = CoursepageMaterial.where("course_id=?",course.id)
-            @material.each do |material|
-              material.destroy
-            end
-            @enrollrequest = EnrollmentRequest.where("course_id=?",course.id)
-            @enrollrequest.each do |enrollrequest|
-              enrollrequest.destroy
-            end
-            @studentenrollments = StudentEnrollment.where("course_id=?",course.id)
-            @studentenrollments.each do |studentenrollments|
-              studentenrollments.destroy
-            end
-             course.destroy
+          @history = History.where("course_id=?", course.id)
+          @history.each do |history|
+            history.destroy
           end
+          @material = CoursepageMaterial.where("course_id=?", course.id)
+          @material.each do |material|
+            material.destroy
+          end
+          @enrollrequest = EnrollmentRequest.where("course_id=?", course.id)
+          @enrollrequest.each do |enrollrequest|
+            enrollrequest.destroy
+          end
+          @studentenrollments = StudentEnrollment.where("course_id=?", course.id)
+          @studentenrollments.each do |studentenrollments|
+            studentenrollments.destroy
+          end
+          course.destroy
+        end
       end
 
       if @instructor.update_attribute(:is_activeuser, false)
@@ -170,7 +171,8 @@ class AdminsController < ApplicationController
 
   def manage_course
     @current_courses = Course.where(:status => true)
-    @past_courses = Course.where(:status => false)
+    @past_courses = Course.where(:status => false, :admin_res => false)
+    @inactive = Course.where(:status => false, :admin_res => true)
   end
 
   def view_admin
@@ -185,29 +187,29 @@ class AdminsController < ApplicationController
     @Course = Course.find(params[:id])
     course = @Course
 
-    @history = History.where("course_id=?",course.id)
+    @history = History.where("course_id=?", course.id)
     @history.each do |history|
       history.destroy
     end
 
-    @material = CoursepageMaterial.where("course_id=?",course.id)
+    @material = CoursepageMaterial.where("course_id=?", course.id)
     @material.each do |material|
       material.destroy
     end
 
-    @enrollrequest = EnrollmentRequest.where("course_id=?",course.id)
+    @enrollrequest = EnrollmentRequest.where("course_id=?", course.id)
     @enrollrequest.each do |enrollrequest|
       enrollrequest.destroy
     end
 
-    @studentenrollments = StudentEnrollment.where("course_id=?",course.id)
+    @studentenrollments = StudentEnrollment.where("course_id=?", course.id)
     @studentenrollments.each do |studentenrollments|
       studentenrollments.destroy
     end
 
     if course.destroy
-        flash[:success] = 'Course deleted successfully!'
-        redirect_to(:action => 'manage_course')
+      flash[:success] = 'Course deleted successfully!'
+      redirect_to(:action => 'manage_course')
     else
       flash[:error] = 'Could not delete course!'
       redirect_to(:action => 'manage_course')

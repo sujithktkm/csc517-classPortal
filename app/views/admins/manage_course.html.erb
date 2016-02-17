@@ -41,3 +41,24 @@
       <% end %>
     </table>
 <% end %>
+
+
+<% if @inactive %>
+    <h3>List of inactive courses</h3><br/>
+    <table class="table">
+      <tr>
+        <th class="col-md-1">Course title</th>
+        <th class="col-md-1">Instructor Name</th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      <% @inactive.each do |course| %>
+          <td><%= course.title %></td>
+          <td><%= Instructor.find(course.instructor_id).name %></td>
+          <td><%= link_to 'View details', view_course_path(course), :class => 'btn btn-success' %></td>
+      <% end %>
+    </table>
+<% end %>
