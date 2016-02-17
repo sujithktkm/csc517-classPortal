@@ -1,0 +1,9 @@
+<%= bootstrap_form_tag url: students_add_student_to_course_path(:student_id => params[:student_id], :course_id => params[:course_id]), method: 'add_student_to_course' do |f| %>
+    <% if @student_ids.size == 0 %>
+        <%= f.collection_select :student_id, Student.all, :id, :name, include_blank: true %>
+    <% else %>
+        <%= f.collection_select :student_id, Student.where('id NOT IN (:enrolled)', :enrolled => @student_ids), :id, :name, include_blank: true %>
+    <% end %>
+    <%= f.submit 'Select', :class => 'btn btn-submit btn-success' %>  &nbsp
+    <%= link_to 'Back', admins_manage_course_path, :class => 'btn btn-info' %>
+<% end %>
