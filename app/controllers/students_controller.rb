@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
-  skip_before_action :require_userauth
+  skip_before_action :require_userauth, only: [:new, :create]
 
-  before_action :require_userauth, only: [:edit]
+  before_action :student_access, only: [:edit, :update, :show, :search, :search_submit, :course_info, :course_history]
 
   def new
     @student = Student.new
@@ -43,7 +43,7 @@ class StudentsController < ApplicationController
 
   # Display my courses
   def show
-    @courseinfo = StudentEnrollment.select('"student_enrollments".*, "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled', :studentid => session[:user_id], :enrolled => "ENROLLED")
+    @courseinfo = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled', :studentid => session[:user_id], :enrolled => "ENROLLED")
   end
 
 
@@ -78,11 +78,13 @@ class StudentsController < ApplicationController
   end
 
   def course_history
-
     @student = Student.find(session[:user_id])
     @history_data ||= History.select('"histories"."grade"', '"courses"."title"', '"courses"."description"', '"courses"."end_date"').joins(:course).where('user_id = :studentid', :studentid => @student.id)
 
+  end
 
+  def course_notification
+    @course_notification = CoursepageMaterial.where('course_id = :courseid',:courseid => params[:course_id] )
   end
 
 

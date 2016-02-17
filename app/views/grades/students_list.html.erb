@@ -1,4 +1,9 @@
-<%= bootstrap_form_tag url: grades_edit_path(:student_id => params[:student_id], :course_id => params[:course_id]), method: 'edit'  do |f| %>
+<%= bootstrap_form_tag url: grades_edit_path(:student_id => params[:student_id], :course_id => params[:course_id]), method: 'edit' do |f| %>
     <%= f.collection_select :student_id, Student.joins(:student_enrollments).where('student_enrollments.status = :status AND student_enrollments.course_id = :courseid', :status => 'ENROLLED', :courseid => params[:course_id].to_i), :id, :name, include_blank: true %>
-    <%= f.submit 'Select', :class => 'btn btn-submit btn-success'%>  &nbsp   <%= link_to 'Back', :back, :class => 'btn btn-info'%>
+    <%= f.submit 'Select', :class => 'btn btn-submit btn-success' %>  &nbsp
+    <% if @user_authenticated.type == 'Instructor' %>
+        <%= link_to 'Back', courses_list_courses_path(:course_id => params[:course_id]), :class => 'btn btn-info' %>
+    <% elsif @user_authenticated.type == 'Admin' %>
+        <%= link_to 'Back', admins_manage_course_path, :class => 'btn btn-info' %>
+    <% end %>
 <% end %>

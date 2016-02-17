@@ -1,19 +1,43 @@
-<% if @Course %>
-    <h3>List of Courses</h3><br/>
+<%= link_to 'Create new course', '/admins/manage_course/create_course', :class => 'btn btn-info' %><br/><br/><br/>
+<% if @current_courses %>
+    <h3>List of current/future courses</h3><br/>
     <table class="table">
       <tr>
         <th class="col-md-1">Course title</th>
         <th class="col-md-1"></th>
         <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
       </tr>
-      <% @Course.each do |course| %>
+      <% @current_courses.each do |course| %>
           <tr>
             <td><%= course.title %></td>
             <td><%= link_to 'View details', view_course_path(course), :class => 'btn btn-success' %></td>
             <td><%= link_to 'Edit details', edit_admin_course_path(course), :class => 'btn btn-warning' %></td>
-            <td><%= link_to 'Delete', delete_course_path(course), :class => 'btn btn-warning' %></td>
+            <td><%= link_to 'Add Content', coursepage_materials_new_path(:course_id => course.id), method: 'get', class: 'btn btn-info' %></td>
+            <td><%= link_to 'Post Grades', grades_students_list_path(:course_id => course.id), method: 'get', class: 'btn btn-info' %></td>
+            <td><%= link_to 'Enrollment Requests', enrollments_index_path(:course_id => course.id), method: 'get', class: 'btn btn-info' %></td>
+            <td><%= link_to 'Delete', delete_course_path(course), :class => 'btn btn-danger' %></td>
           </tr>
       <% end %>
     </table>
-    <%= link_to 'Create new course', '/admins/manage_course/create_course', :class => 'btn btn-info' %>
+<% end %>
+
+<% if @past_courses %>
+    <h3>List of past courses</h3><br/>
+    <table class="table">
+      <tr>
+        <th class="col-md-1">Course title</th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      <% @past_courses.each do |course| %>
+          <td><%= course.title %></td>
+          <td><%= link_to 'View details', view_course_path(course), :class => 'btn btn-success' %></td>
+      <% end %>
+    </table>
 <% end %>

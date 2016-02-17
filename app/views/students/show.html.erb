@@ -14,7 +14,7 @@
         <tr>
           <!--course_path(c)-->
           <!--The folowing link should go the Announcements page-->
-          <td class="col-xs-1"><%= link_to c.coursenumber, login_path %></td>
+          <td class="col-xs-1"><%= link_to c.coursenumber, students_course_notification_path(:course_id => c.id) %></td>
           <td class="col-xs-1"><%= c.title %></td>
           <td class="col-xs-1"><%= c.description %></td>
           <td class="col-xs-1"><%= c.start_date %></td>

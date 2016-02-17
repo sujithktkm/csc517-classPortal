@@ -13,11 +13,23 @@ class ApplicationController < ActionController::Base
   end
 
   def instructor_access
-    redirect_to root_path unless @user_authenticated && @user_authenticated.type == 'Instructor'
+    redirect_to root_path, alert: 'No access!' unless @user_authenticated && @user_authenticated.type == 'Instructor'
   end
 
   def student_access
-    redirect_to root_path unless @user_authenticated && @user_authenticated.type == 'Student'
+    redirect_to root_path, alert: 'No access!' unless @user_authenticated && @user_authenticated.type == 'Student'
+  end
+
+  def admin_access
+    redirect_to root_path, alert: 'No access!' unless @user_authenticated && @user_authenticated.type == 'Admin'
+  end
+
+  def student_admin_access
+    redirect_to root_path, alert: 'No access!' unless @user_authenticated && ['Admin', 'Student'].include?(@user_authenticated.type)
+  end
+
+  def instructor_admin_access
+    redirect_to root_path, alert: 'No access!' unless @user_authenticated && ['Admin', 'Instructor'].include?(@user_authenticated.type)
   end
 
   protect_from_forgery with: :exception
