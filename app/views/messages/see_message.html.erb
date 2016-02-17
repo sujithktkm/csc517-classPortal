@@ -1,0 +1,22 @@
+Messages<br>
+<% @message.each do |message| %>
+    <% if message.role=="Instructor" %>
+        <%= User.find(message.instructor_id).name %> --
+        <%= message.content %> <br>
+        <%else%>
+
+        <%= User.find(session[:user_id]).name %> --
+        <%= message.content %> <br>
+        <%end%>
+
+
+<% end %>
+
+
+
+<%= form_for(@new_message, :url => url_for(:controller => 'messages', :action => 'send_new_message')) do |f| %>
+    <%= f.text_field :content %>
+
+    <%= f.submit 'Send Message', :class => 'btn btn-info' %>
+
+<% end %>

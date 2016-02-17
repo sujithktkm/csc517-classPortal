@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <table class="table" width="100&">
+    <tr>
+      <td class="col-xs-1">Student ID</td>
+      <td class="col-xs-1">Last Message</td>
+
+      <td class="col-xs-1">Action</td>
+    </tr>
+    <% @studentlist.each do |s| %>
+        <tr>
+          <td class="col-xs-1"><%= s.id %></td>
+          <td class="col-xs-1"><%= Message.where("student_id=? and instructor_id=?",s.id,session[:user_id]).last.content %></td>
+
+          <td class="col-xs-1"><%= link_to 'Send Message', instructor_message_send_path(s) ,:class => 'btn btn-danger' %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+<%= link_to 'Back', courses_list_courses_path(:course_id => params[:course_id]), :class => 'btn btn-info' %>

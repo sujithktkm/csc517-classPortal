@@ -73,8 +73,14 @@ Rails.application.routes.draw do
   get '/admins/admin_view_student/:id' => 'admins#admin_view_student',as: :view_student
   get '/admins/view_instructor/:id' => 'admins#view_instructor',as: :view_instructor
 
+  get 'messages/see_message' => 'messages#see_message',as: :see_message
+  post 'messages/send_new_message' => 'messages#send_new_message',as: :send_new_message
 
 
+  get 'messages/instructor_message_view/:id' => 'messages#instructor_message_view',as: :instructor_message_view
+  get 'messages/instructor_message_send/:id' => 'messages#instructor_message_send',as: :instructor_message_send
+
+  post 'messages/instructor_message_save' => 'messages#instructor_message_save',as: :instructor_message_save
 
 
   # get 'signup' => ''

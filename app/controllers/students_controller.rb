@@ -85,6 +85,7 @@ class StudentsController < ApplicationController
 
   def course_notification
     @course_notification = CoursepageMaterial.where('course_id = :courseid',:courseid => params[:course_id] )
+    session[:courseid] = params[:course_id]
   end
 
 
