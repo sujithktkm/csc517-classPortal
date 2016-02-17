@@ -132,6 +132,12 @@ class AdminsController < ApplicationController
 
     if @user.type == 'Student'
       @student = @user
+
+      @message = Message.where("student_id=?",params[:id])
+      @message.each do |message|
+        message.destroy
+      end
+
       @history = History.where("user_id = ?",params[:id])
       @history.each do |history|
         history.destroy
@@ -156,6 +162,12 @@ class AdminsController < ApplicationController
       if Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id],Date.today,Date.today)
         @course = Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id],Date.today,Date.today)
         @course.each do |course|
+
+          @message = Message.where("instructor_id=?",params[:id])
+          @message.each do |message|
+            message.destroy
+          end
+
             @history = History.where("course_id=?",course.id)
             @history.each do |history|
               history.destroy
@@ -205,6 +217,11 @@ class AdminsController < ApplicationController
   def delete_course
     @Course = Course.find(params[:id])
     course = @Course
+
+    @message = Message.where("course_id=?",params[:id])
+    @message.each do |message|
+      message.destroy
+    end
 
     @history = History.where("course_id=?",course.id)
     @history.each do |history|
