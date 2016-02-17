@@ -1,0 +1,26 @@
+<ul class="list-group">
+  <li class="list-group-item">Name:     <%= @student.name %></li>
+  <li class="list-group-item">Email:    <%= @student.email %></li>
+</ul>
+
+<!--'/admins/manage_admin'-->
+<%= link_to 'Back', :back, :class => 'btn btn-info' %>
+
+<% if @history %>
+    <h3>History</h3><br/>
+    <table class="table">
+      <tr>
+        <th class="col-md-1">Course title</th>
+        <th class="col-md-1">Grade</th>
+        <th class="col-md-1">Course Status</th>
+
+      </tr>
+      <% @history.each do |history| %>
+          <tr>
+            <td><%= Course.find(history.course_id).title %></td>
+            <td><%= history.grade %></td>
+            <td><%= Course.find(history.course_id).status ? 'ACTIVE' : 'INACTIVE' %></td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>

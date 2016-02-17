@@ -1,0 +1,8 @@
+<%= bootstrap_form_for(@student,:url => url_for(:controller => 'admins', :action => 'create_student_save')) do |f| %>
+    <%= f.text_field :name, :placeholder => 'Name' %>
+    <%= f.email_field :email, :placeholder => 'Email' %>
+    <%= f.password_field :password, :placeholder => 'Password' %>
+    <%= f.submit 'Create Student', :class => 'btn btn-info' %>
+    <%= link_to 'Back', admins_manage_user_path, :class => 'btn btn-info' %>
+
+<% end %>
