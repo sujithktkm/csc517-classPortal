@@ -67,6 +67,12 @@ Rails.application.routes.draw do
   post '/admins/manage_course/create_course_save' => 'admins#create_course_save'
   get '/admins/manage_course/edit_course/:id' => 'admins#edit_course', as: :edit_admin_course
   patch '/admins/edit_admin_course_save/:id' => 'admins#edit_admin_course_save'
+  get '/admins/create_student' => 'admins#create_student'
+  post '/admins/create_student_save' =>'admins#create_student_save'
+
+  get '/admins/admin_view_student/:id' => 'admins#admin_view_student',as: :view_student
+  get '/admins/view_instructor/:id' => 'admins#view_instructor',as: :view_instructor
+
 
 
 

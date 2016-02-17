@@ -10,6 +10,36 @@ class AdminsController < ApplicationController
     @Instructors=Instructor.where("is_activeuser=?",true)
   end
 
+  def admin_view_student
+    @student = Student.find(params[:id])
+    @history = History.where("user_id=?",params[:id])
+
+
+  end
+  def view_instructor
+
+    @instructor = Instructor.find(params[:id])
+    @history = History.where("user_id=?",params[:id])
+
+  end
+
+  def create_student
+    @student = Student.new
+  end
+
+  def create_student_save
+
+    @student=Student.new(student_params)
+    if @student.save
+      flash[:success]='Student account created successfully!'
+      redirect_to(:action => 'manage_user')
+    else
+      flash[:danger]='Student creation failed. Please try again!'
+      redirect_to(:action => 'create_instructor')
+    end
+
+  end
+
   def edit_admin
     @Admin = User.find(session[:user_id])
   end
@@ -82,6 +112,13 @@ class AdminsController < ApplicationController
     @Course = Course.new(course_params)
 
     if @Course.save
+      @history = History.find_or_create_by(course_id: @Course.id, user_id: @Course.instructor_id) do |h|
+        h.role = 'Instructor'
+        h.grade = '0'
+      end
+
+
+
     flash[:success] = 'Course creation successful!'
     redirect_to(:action => 'manage_course')
     else
@@ -212,6 +249,10 @@ class AdminsController < ApplicationController
   private
   def instructor_params
     params.require(:instructor).permit(:name, :email, :password)
+  end
+
+  def student_params
+    params.require(:student).permit(:name, :email, :password)
   end
 
   def admin_params

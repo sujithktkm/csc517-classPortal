@@ -8,13 +8,13 @@
       <% @Students.each do |student| %>
           <tr>
             <td><%= student.name %></td>
-            <td><%= link_to 'View details', view_admin_path(student), :class => 'btn btn-success' %></td>
+            <td><%= link_to 'View details', view_student_path(student), :class => 'btn btn-success' %></td>
             <td><%= link_to 'Delete', delete_user_path(student), :class => 'btn btn-warning' %></td>
           </tr>
       <% end %>
     </table>
 <% end %>
-
+<%= link_to 'Create new Student', '/admins/create_student', :class => 'btn btn-info' %>
 <% if @Instructors %>
     <h3>List of Instructors</h3> <br>
     <table class="table">
@@ -25,7 +25,7 @@
       <% @Instructors.each do |instructor| %>
           <tr>
             <td><%= instructor.name %></td>
-            <td></t> <%= link_to 'View details', view_admin_path(instructor), :class => 'btn btn-success' %></td>
+            <td></t> <%= link_to 'View details', view_instructor_path(instructor), :class => 'btn btn-success' %></td>
             <td><%= link_to 'Delete', delete_user_path(instructor), :class => 'btn btn-warning' %></td>
           </tr>
       <% end %>
