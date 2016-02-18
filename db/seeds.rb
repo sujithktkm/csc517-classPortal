@@ -8,7 +8,7 @@
 
 Admin.create name: 'admin', email: 'admin@csc517.com', password: 'csc517', deletable: false
 #Student.create name: 'anurag', email: 'anurag@gmail.com', password: 'abcd'
-Instructor.create name: 'efg', email: 'efg@gmail.com', password: '123'
+# Instructor.create name: 'efg', email: 'efg@gmail.com', password: '123'
 #Course.create coursenumber: '517', title: 'OODD', description: 'Object Oriented Design Development', start_date: '2016-02-08', end_date: '2016-05-06',status: 'Active'
 #CourseInstructor.create status: true, course_id: 1, instructor_id: 8
 #Admin.create name: 'vijay', email: 'vijay@csc517.com', password: 'csc517', deletable: false

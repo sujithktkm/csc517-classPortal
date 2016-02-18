@@ -29,7 +29,7 @@
     <div class="form_row">
       <label> Instructor</label>
       <label for="text">
-        <%= f.collection_select :instructor_id, Instructor.all, :id, :name, include_blank: false %>
+        <%= f.collection_select :instructor_id, Instructor.where(is_activeuser: true), :id, :name, include_blank: false %>
       </label>
     </div>
     <div class="actions">

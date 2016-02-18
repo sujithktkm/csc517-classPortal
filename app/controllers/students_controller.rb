@@ -11,13 +11,22 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
-    if @student.save
-      session[:student_id] = @student.id
-      flash[:success] = 'Student created successfully'
-      redirect_to root_path
+
+    if student_params[:name].nil? || student_params[:email].nil? || student_params[:name].blank? || student_params[:email].blank?
+      flash[:danger] = 'Blank details!'
+      render new_student_path
+    elsif User.where("email = ?", student_params[:email]).blank?
+      if @student.save
+        session[:student_id] = @student.id
+        flash[:success] = 'Student created successfully'
+        redirect_to root_path
+      else
+        flash[:danger] = 'Cannot create Student. Please try again'
+        redirect_to new_student_path
+      end
     else
-      flash[:danger] = 'Cannot create Student. Please try again'
-      redirect_to new_student_path
+      flash[:danger] = 'Duplicate email!'
+      render new_student_path
     end
   end
 
@@ -34,11 +43,20 @@ class StudentsController < ApplicationController
 
   def update
     @student = Student.find(params[:id])
-    if @student.update(student_params)
-      flash[:success] = 'Updated profile!'
-      redirect_to root_path
+
+    if student_params[:name].nil? || student_params[:email].nil? || student_params[:name].blank? || student_params[:email].blank?
+      flash[:danger] = 'Blank details!'
+      render 'edit'
+    elsif User.where("email = ? AND id NOT IN (?)", student_params[:email], @student.id).blank?
+      if @student.update(student_params)
+        flash[:success] = 'Updated profile!'
+        redirect_to root_path
+      else
+        flash[:danger] = 'Cannot edit details!'
+        render 'edit'
+      end
     else
-      flash[:danger] = 'Cannot edit profile details!'
+      flash[:danger] = 'Duplicate email!'
       render 'edit'
     end
   end

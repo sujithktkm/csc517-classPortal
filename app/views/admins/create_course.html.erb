@@ -1,4 +1,4 @@
-<%= form_for(Course.new, :url => url_for(:controller => 'admins', :action => 'create_course_save')) do |f| %>
+<%= form_for(@course, :url => url_for(:controller => 'admins', :action => 'create_course_save')) do |f| %>
     <div class="form_row">
       <label for="text">Course Number:</label>
       <%= f.text_field :coursenumber %>

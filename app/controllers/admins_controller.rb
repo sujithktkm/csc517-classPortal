@@ -46,16 +46,20 @@ class AdminsController < ApplicationController
   end
 
   def create_student_save
-
     @student=Student.new(student_params)
-    if @student.save
-      flash[:success]='Student account created successfully!'
-      redirect_to(:action => 'manage_user')
-    else
-      flash[:danger]='Student creation failed. Please try again!'
-      redirect_to(:action => 'create_instructor')
-    end
 
+    if User.where("email=?",@student.email).blank?
+      if @student.save
+        flash[:success]='Student account created successfully!'
+        redirect_to(:action => 'manage_user')
+      else
+        flash[:danger]='Student creation failed. Please try again!'
+        redirect_to(:action => 'create_student')
+      end
+    else
+      flash[:danger] = 'Duplicate email!'
+      redirect_to(:action => 'create_student')
+    end
   end
 
   def edit_admin
@@ -64,11 +68,16 @@ class AdminsController < ApplicationController
 
   def create_instructor_save
     @Instructor=Instructor.new(instructor_params)
-    if @Instructor.save
-      flash[:success]='Instructor created successfully!'
-      redirect_to(:action => 'manage_user')
+    if User.where("email=?",@Instructor.email).blank?
+      if @Instructor.save
+        flash[:success]='Instructor created successfully!'
+        redirect_to(:action => 'manage_user')
+      else
+        flash[:danger]='Instructor creation failed. Please try again!'
+        redirect_to(:action => 'create_instructor')
+      end
     else
-      flash[:danger]='Instructor creation failed. Please try again!'
+      flash[:danger] = 'Duplicate email!'
       redirect_to(:action => 'create_instructor')
     end
   end
@@ -83,24 +92,36 @@ class AdminsController < ApplicationController
 
   def edit_admin_course_save
     @Course = Course.find(params[:id])
-
-    if @Course.update_attributes(course_params)
-      flash[:success] = 'Course edit successful!'
+    if course_params[:coursenumber].nil? || course_params[:title].nil? || course_params[:description].nil? || course_params[:status].nil? || course_params[:instructor_id].nil? || course_params[:coursenumber].blank? || course_params[:title].blank? || course_params[:description].blank? || course_params[:status].blank? || course_params[:instructor_id].blank?
+      flash[:danger] = 'Cannot have blanks!'
       redirect_to(:action => 'manage_course')
     else
-      flash[:danger] = 'Cannot edit course!'
-      redirect_to(:action => 'manage_course')
+      if @Course.update_attributes(course_params)
+        flash[:success] = 'Course edit successful!'
+        redirect_to(:action => 'manage_course')
+      else
+        flash[:danger] = 'Cannot edit course!'
+        redirect_to(:action => 'manage_course')
+      end
     end
   end
 
   def edit_admin_save
     @Admin = User.find(session[:user_id])
 
-    if @Admin.update_attributes(admin_params)
-      flash[:success] = 'Admin details updated successfully!'
+    if admin_params[:name].nil? || admin_params[:email].nil? || admin_params[:name].blank? || admin_params[:email].blank?
+      flash[:danger] = 'Blank fields!'
       redirect_to(:action => 'manage_admin')
+    elsif User.where("email = ? AND id NOT IN (?)", admin_params[:email], @Admin.id).blank?
+      if @Admin.update_attributes(admin_params)
+        flash[:success] = 'Admin details updated successfully!'
+        redirect_to(:action => 'manage_admin')
+      else
+        flash[:danger] = 'Cannot edit Admin!'
+        redirect_to(:action => 'manage_admin')
+      end
     else
-      flash[:danger] = 'Cannot edit Admin!'
+      flash[:danger] = 'Duplicate email!'
       redirect_to(:action => 'manage_admin')
     end
   end
@@ -123,23 +144,27 @@ class AdminsController < ApplicationController
   end
 
   def create_course
-    @Course = Course.new
+    @course = Course.new
   end
 
   def create_course_save
     @Course = Course.new(course_params)
-
-    if @Course.save
-      @history = History.find_or_create_by(course_id: @Course.id, user_id: @Course.instructor_id) do |h|
-        h.role = 'Instructor'
-        h.grade = '0'
-      end
-
-      flash[:success] = 'Course creation successful!'
+    if course_params[:coursenumber].nil? || course_params[:title].nil? || course_params[:description].nil? || course_params[:status].nil? || course_params[:instructor_id].nil? || course_params[:coursenumber].blank? || course_params[:title].blank? || course_params[:description].blank? || course_params[:status].blank? || course_params[:instructor_id].blank?
+      flash[:danger] = 'Cannot have blanks!'
       redirect_to(:action => 'manage_course')
     else
-      flash[:danger] = 'Cannot create course'
-      redirect_to(:action => 'manage_course')
+      if @Course.save
+        @history = History.find_or_create_by(course_id: @Course.id, user_id: @Course.instructor_id) do |h|
+          h.role = 'Instructor'
+          h.grade = '0'
+        end
+
+        flash[:success] = 'Course creation successful!'
+        redirect_to(:action => 'manage_course')
+      else
+        flash[:danger] = 'Cannot create course!'
+        redirect_to(:action => 'manage_course')
+      end
     end
   end
 
@@ -269,12 +294,18 @@ class AdminsController < ApplicationController
 
   def create
     @Admin=Admin.new(admin_params)
-    if @Admin.save
-      flash[:success]='Admin created successfully.'
-      redirect_to(:action => 'manage_admin')
+
+    if User.where("email=?",@Admin.email).blank?
+      if @Admin.save
+        flash[:success]='Admin created successfully.'
+        redirect_to(:action => 'manage_admin')
+      else
+        flash[:danger]='Admin creation failed. Please try again.'
+        redirect_to(:action => 'create_admin')
+      end
     else
-      flash[:danger]='Admin creation failed. Please try again.'
-      redirect_to(:action => 'manage_admin')
+      flash[:danger] = 'Duplicate email!'
+      redirect_to(:action => 'create_admin')
     end
   end
 

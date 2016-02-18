@@ -14,7 +14,16 @@ class GradesController < ApplicationController
   end
 
   def edit
-    @studentenrollments = StudentEnrollment.find(params[:enrollment_id])
+    if params[:enrollment_id].nil? || params[:enrollment_id].blank?
+      flash[:danger] = 'Cannot be blank!'
+      if @user_authenticated.type == 'Admin'
+        redirect_to admins_manage_course_path
+      elsif @user_authenticated.type == 'Instructor'
+        redirect_to courses_list_courses_path
+      end
+    else
+      @studentenrollments = StudentEnrollment.find(params[:enrollment_id])
+    end
     # @studentenrollments = StudentEnrollment.where('student_enrollments.student_id = :studentid and student_enrollments.course_id = :courseid', :studentid => params[:student_id].to_i, :courseid => params[:course_id].to_i)
   end
 
