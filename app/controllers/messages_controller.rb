@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
     @message.student_id= User.find(session[:message]).id
     if @message.save
       flash[:success] = "message sent"
-      redirect_to root_path
+      redirect_to instructor_message_send_path(@message.student_id)
     else
       flash[:success] = "message failed"
       redirect_to root_path

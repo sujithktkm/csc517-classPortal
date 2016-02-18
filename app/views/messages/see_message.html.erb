@@ -1,4 +1,4 @@
-Messages<br>
+<label>Messages</label><br>
 <% @message.each do |message| %>
     <% if message.role=="Instructor" %>
         <%= User.find(message.instructor_id).name %> --

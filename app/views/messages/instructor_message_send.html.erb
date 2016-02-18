@@ -1,4 +1,5 @@
-Messages<br>
+<label>Messages</label><br>
+<ul class="list-group">
 <% @message.each do |message| %>
     <% if message.role=="Instructor" %>
         <%= User.find(session[:user_id]).name %> --
@@ -12,6 +13,7 @@ Messages<br>
 
 
 <% end %>
+  </ul>
 
 
 <%= form_for(@new_message, :url => url_for(:controller => 'messages', :action => 'instructor_message_save')) do |f| %>
