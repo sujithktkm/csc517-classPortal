@@ -32,5 +32,9 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: 'No access!' unless @user_authenticated && ['Admin', 'Instructor'].include?(@user_authenticated.type)
   end
 
+  def instructor_student_access
+    redirect_to root_path, alert: 'No access!' unless @user_authenticated && ['Student', 'Instructor'].include?(@user_authenticated.type)
+  end
+
   protect_from_forgery with: :exception
 end
