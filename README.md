@@ -35,7 +35,9 @@ Password: csc517
 ```
 
 ##Usage
-Students can sign up at login page by entering name, email (should be unique) and password. Admins can create students, instructors and other admins. Users can change their passwords any time by clicking 'Edit Profile' found at right corner of page.
+- Students can sign up at login page by entering name, email (should be unique) and password. Admins can create students, instructors and other admins. Users can change their passwords any time by clicking 'Edit Profile' found at right corner of page.
+
+- Student can enroll in a course and it shows up in 'My Courses' tab. To drop a course, user will have to search for the course using the 'Search Courses' tab, select the coursee he is willing to drop and then click 'Drop Course'.
 
 ##Assumptions
 Here are assumptions as part of development of this application -
