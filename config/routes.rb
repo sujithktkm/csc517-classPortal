@@ -77,11 +77,14 @@ Rails.application.routes.draw do
   get 'messages/see_message' => 'messages#see_message',as: :see_message
   post 'messages/send_new_message' => 'messages#send_new_message',as: :send_new_message
 
-
   get 'messages/instructor_message_view/:id' => 'messages#instructor_message_view',as: :instructor_message_view
   get 'messages/instructor_message_send/:id' => 'messages#instructor_message_send',as: :instructor_message_send
 
   post 'messages/instructor_message_save' => 'messages#instructor_message_save',as: :instructor_message_save
+
+  get '/admins/admin_inactivate_reqs' => 'admins#admin_inactivate_reqs'
+  get '/admins/admin_inactivate_reqs_accept/:id' => 'admins#admin_inactivate_reqs_accept',as: :admin_inactivate_reqs_accept
+  get '/courses/course_inactivate_request/:id' => 'courses#course_inactivate_request',as: :course_inactivate_request
 
 
   # get 'signup' => ''
