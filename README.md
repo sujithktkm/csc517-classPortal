@@ -42,3 +42,7 @@ Here are assumptions as part of development of this application -
 * This model assumes that when an Admin creates a user with login email and password, admin communicates the same to the user and the use can login using these details. The user can change his password after his first login using 'Edit Profile' option.
 * If an Instructor is deleted, history of courses Instructor is currently teaching and are scheduled for future will be lost. The history of already taught courses is saved so that student who had taken the course can view their grades.
 * There can be more than one section for a given course (same course number) and a student can only enroll in one of these sections.
+
+##References
+1. https://www.codecademy.com/learn/rails-auth
+2. https://getbootstrap.com/components/#navbar
