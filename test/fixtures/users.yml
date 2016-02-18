@@ -5,7 +5,7 @@
 ## below each fixture, per the syntax in the comments below
 ##
 one:
-  name: 'name'
-  email: 'email@email.com'
+  name: 'test'
+  email: 'test@test.com'
   password_digest: <%= BCrypt::Password.create('password') %>
-  type: Student
+  type: 'Admin'
