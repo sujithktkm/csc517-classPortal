@@ -21,7 +21,7 @@ Clone the repository from [csc517-classPortal](https://github.com/sujithktkm/csc
 bundle install
 rake db:migrate
 rake db:seed
-rails server
+rails server # starts the server
 ```
 
 Open any browser and visit <tt>http://localhost:3000</tt> (Assuming that you are using the default port)
@@ -29,9 +29,9 @@ Open any browser and visit <tt>http://localhost:3000</tt> (Assuming that you are
 ##Configuration
 The default admin login information for this portal is
 ```
-Name		  : admin
-Email		  : admin@csc517.com
-Password	: csc517
+Name:     admin
+Email:    admin@csc517.com
+Password: csc517
 ```
 
 ##Usage
