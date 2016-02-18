@@ -34,13 +34,14 @@
           <% elsif @user_authenticated.type == 'Instructor' %>
               <%= render 'layouts/instructors' %>
               <ul class="nav navbar-nav navbar-right">
+                <li><%= link_to 'Edit Profile', edit_instructor_path(@user_authenticated), method: 'get' %></li>
                 <li><a><%= @user_authenticated.name %></a></li>
                 <li><%= link_to 'Logout', logout_path, method: 'delete' %></li>
               </ul>
           <% elsif @user_authenticated.type == 'Admin' %>
               <%= render 'layouts/admins' %>
               <ul class="nav navbar-nav navbar-right">
-                <li><%= link_to 'Edit Profile', admins_manage_admin_edit_admin_path(), method: 'get' %></li>
+                <li><%= link_to 'Edit Profile', admins_manage_admin_edit_admin_path, method: 'get' %></li>
                 <li><a><%= @user_authenticated.email %></a></li>
                 <li><%= link_to 'Logout', logout_path, method: 'delete' %></li>
               </ul>

@@ -88,7 +88,7 @@ class AdminsController < ApplicationController
       flash[:success] = 'Course edit successful!'
       redirect_to(:action => 'manage_course')
     else
-      flash[:success] = 'Countnt edit course!'
+      flash[:danger] = 'Cannot edit course!'
       redirect_to(:action => 'manage_course')
     end
   end
@@ -100,7 +100,7 @@ class AdminsController < ApplicationController
       flash[:success] = 'Admin details updated successfully!'
       redirect_to(:action => 'manage_admin')
     else
-      flash[:success] = 'Could not edit Admin!'
+      flash[:danger] = 'Cannot edit Admin!'
       redirect_to(:action => 'manage_admin')
     end
   end
@@ -138,7 +138,7 @@ class AdminsController < ApplicationController
       flash[:success] = 'Course creation successful!'
       redirect_to(:action => 'manage_course')
     else
-      flash[:success] = 'Could not create course'
+      flash[:danger] = 'Cannot create course'
       redirect_to(:action => 'manage_course')
     end
   end
@@ -163,7 +163,7 @@ class AdminsController < ApplicationController
       if @user.destroy
         flash[:success] = 'Student deleted successfully!'
       else
-        flash[:danger] = 'Could not delete student!'
+        flash[:danger] = 'Cannot delete student!'
       end
     end
 
@@ -195,7 +195,7 @@ class AdminsController < ApplicationController
       if @instructor.update_attribute(:is_activeuser, false)
         flash[:success] = 'Instructor deleted successfully!'
       else
-        flash[:danger] = 'Couldnot delete Instructor!'
+        flash[:danger] = 'Cannot delete Instructor!'
       end
     end
     redirect_to(:action => 'manage_user')
@@ -247,7 +247,7 @@ class AdminsController < ApplicationController
       flash[:success] = 'Course deleted successfully!'
       redirect_to(:action => 'manage_course')
     else
-      flash[:error] = 'Could not delete course!'
+      flash[:danger] = 'Cannot delete course!'
       redirect_to(:action => 'manage_course')
     end
   end

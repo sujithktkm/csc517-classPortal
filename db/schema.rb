@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217010633) do
+ActiveRecord::Schema.define(version: 20160217050541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,20 @@ ActiveRecord::Schema.define(version: 20160217010633) do
   add_index "histories", ["course_id"], name: "index_histories_on_course_id", using: :btree
   add_index "histories", ["user_id"], name: "index_histories_on_user_id", using: :btree
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "role",          null: false
+    t.string   "content",       null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "student_id"
+    t.integer  "instructor_id"
+    t.integer  "course_id"
+  end
+
+  add_index "messages", ["course_id"], name: "index_messages_on_course_id", using: :btree
+  add_index "messages", ["instructor_id"], name: "index_messages_on_instructor_id", using: :btree
+  add_index "messages", ["student_id"], name: "index_messages_on_student_id", using: :btree
+
   create_table "student_enrollments", force: :cascade do |t|
     t.string   "status",                   null: false
     t.string   "grade",      default: "0"
@@ -97,6 +111,9 @@ ActiveRecord::Schema.define(version: 20160217010633) do
   add_foreign_key "enrollment_requests", "users", column: "student_id"
   add_foreign_key "histories", "courses"
   add_foreign_key "histories", "users"
+  add_foreign_key "messages", "courses"
+  add_foreign_key "messages", "users", column: "instructor_id"
+  add_foreign_key "messages", "users", column: "student_id"
   add_foreign_key "student_enrollments", "courses"
   add_foreign_key "student_enrollments", "users", column: "student_id"
 end

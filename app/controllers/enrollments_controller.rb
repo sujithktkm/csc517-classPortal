@@ -1,6 +1,6 @@
 class EnrollmentsController < ApplicationController
   before_action :instructor_admin_access, only: [:index, :update]
-  before_action :student_access, only: [:create,:destroy]
+  before_action :student_access, only: [:create, :destroy]
 
   def index
     unless params[:course_id].nil?
@@ -10,12 +10,20 @@ class EnrollmentsController < ApplicationController
   end
 
   def create
-    @enrollmentrequest = EnrollmentRequest.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |e|
-      e.finished = false
-    end
-    @studentenrollment = StudentEnrollment.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |s|
-      s.status = 'PENDING'
-      s.grade = '0'
+    @course = Course.where(id: params[:course_id]).first
+    if StudentEnrollment.joins(:course).select('"student_enrollments".*,"courses"."coursenumber"').where('
+    "courses"."coursenumber" = :coursenumber AND "student_enrollments"."student_id" = :student_id AND "student_enrollments"."status" IN (:status)
+', :coursenumber => @course.coursenumber, :student_id => params[:student_id], :status => ['ENROLLED', 'PENDING']).blank?
+      @enrollmentrequest = EnrollmentRequest.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |e|
+        e.finished = false
+      end
+      @studentenrollment = StudentEnrollment.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |s|
+        s.status = 'PENDING'
+        s.grade = '0'
+      end
+    else
+      flash[:danger] = 'Sorry, cannot send enrollment request. You are either enrolled in different section of same course or have a pending request'
+      redirect_to students_search_path
     end
   end
 

@@ -1,7 +1,9 @@
 class StudentsController < ApplicationController
   skip_before_action :require_userauth, only: [:new, :create]
 
-  before_action :student_access, only: [:edit, :update, :show, :search, :search_submit, :course_info, :course_history]
+  before_action :admin_access, only: [:admin_add_students_list, :add_student_to_course]
+  before_action :instructor_student_access, only: [:edit, :update]
+  before_action :student_access, only: [:show, :search, :search_submit, :course_info, :course_history]
 
   def new
     @student = Student.new
@@ -36,9 +38,9 @@ class StudentsController < ApplicationController
       flash[:success] = 'Updated profile!'
       redirect_to root_path
     else
+      flash[:danger] = 'Cannot edit profile details!'
       render 'edit'
     end
-
   end
 
   # Display my courses
@@ -85,7 +87,42 @@ class StudentsController < ApplicationController
   end
 
   def course_notification
-    @course_notification = CoursepageMaterial.where('course_id = :courseid',:courseid => params[:course_id] )
+    @course_notification = CoursepageMaterial.where('course_id = :courseid', :courseid => params[:course_id])
+  end
+
+  def admin_add_students_list
+    if StudentEnrollment.where(course_id: params[:course_id]).blank?
+      @student_ids = []
+    else
+      @studentsEnrolled = StudentEnrollment.where('course_id = :courseid', :courseid => params[:course_id])
+      @student_ids = []
+      @studentsEnrolled.each do |s|
+        @student_ids << s.student_id
+      end
+    end
+  end
+
+  def add_student_to_course
+    @course = Course.where(id: params[:course_id]).first
+    if Student.where(id: params[:student_id]).blank?
+      flash[:danger] = 'Cannot enroll!'
+      redirect_to admins_manage_course_path
+    elsif StudentEnrollment.joins(:course).select('"student_enrollments".*,"courses"."coursenumber"').where('
+    "courses"."coursenumber" = :coursenumber AND "student_enrollments"."student_id" = :student_id AND "student_enrollments"."status" IN (:status)
+', :coursenumber => @course.coursenumber, :student_id => params[:student_id], :status => ['ENROLLED', 'PENDING']).blank?
+      @enrollmentrequest = EnrollmentRequest.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |e|
+        e.finished = true
+      end
+      @studentenrollment = StudentEnrollment.find_or_create_by(course_id: params[:course_id], student_id: params[:student_id]) do |s|
+        s.status = 'ENROLLED'
+        s.grade = '0'
+      end
+      flash[:success] = 'Enrollment done!'
+      redirect_to admins_manage_course_path
+    else
+      flash[:danger] = 'Sorry, cannot add student. Student is either enrolled in different section of same course or have a pending request'
+      redirect_to admins_manage_course_path
+    end
   end
 
 
