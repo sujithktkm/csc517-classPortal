@@ -20,7 +20,7 @@ class GradesController < ApplicationController
 
   def update
     @studentenrollments = StudentEnrollment.find(params[:enrollment_id])
-    history = History.where('course_id = :courseid AND user_id = :studentid', :courseid => params[:course_id].to_i, :studentid => params[:student_id]).first
+    history = History.where('course_id = :courseid AND user_id = :studentid', :courseid => params[:course_id].to_i, :studentid => params[:student_id].to_i).first
     if @studentenrollments.update(grades_params)
       history.update_attribute(:grade, grades_params[:grade])
       # session[:material_id] = @student.id

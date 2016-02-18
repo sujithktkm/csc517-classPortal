@@ -117,6 +117,10 @@ class StudentsController < ApplicationController
         s.status = 'ENROLLED'
         s.grade = '0'
       end
+      @history = History.find_or_create_by(course_id: params[:course_id], user_id: params[:student_id]) do |s|
+        s.role = 'Student'
+        s.grade = '0'
+      end
       flash[:success] = 'Enrollment done!'
       redirect_to admins_manage_course_path
     else
