@@ -27,7 +27,7 @@ rails server # starts the server
 Open any browser and visit <tt>http://localhost:3000</tt> (Assuming that you are using the default port)
 
 ##Configuration
-The default admin login information for this portal is
+The default admin login information for this portal is (Please don't change these details while testing the app)
 ```
 Name:     admin
 Email:    admin@csc517.com
