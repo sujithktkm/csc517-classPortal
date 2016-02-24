@@ -1,6 +1,6 @@
 <!--@studentenrollments-->
 <%= bootstrap_form_for(@studentenrollments, url: grades_update_path(:enrollment_id => params[:enrollment_id], :student_id => params[:student_id], :course_id => params[:course_id]), method: 'patch') do |f| %>
-    <%= f.text_field :grade, :placeholder => '0' %>
+    <%= f.number_field :grade, :label => 'Grade (Only 0-100)', :class => 'text_field', :min => 0, :max => 100, :placeholder => '0' %>
     <%= f.submit 'Submit Grade', :class => 'btn btn-submit btn-success' %>  &nbsp
     <% if @user_authenticated.type == 'Instructor' %>
         <%= link_to 'Back', :back, :class => 'btn btn-info' %>
