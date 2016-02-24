@@ -26,7 +26,11 @@
           <tr>
             <td><%= f.title %></td>
             <td><%= f.description %></td>
-            <td><%= f.material_type %></td>
+            <%if f.material_type == '1'  %>
+                <strong/> <p style='color: #B00100'>  Deadline</p>
+            <%else%>
+                <strong/> <p style ='color: blue'>Notification</p>
+            <%end%>
           </tr>
       <% end %>
     </table>
