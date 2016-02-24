@@ -4,13 +4,14 @@
   <li class="list-group-item">Description:     <%= @Course.description %></li>
   <li class="list-group-item">Start Date:     <%= @Course.start_date %></li>
   <li class="list-group-item">End Date:     <%= @Course.end_date %></li>
-  <li class="list-group-item">Status :      <% if @Course.status == true%>
+  <li class="list-group-item">Status :
+    <% if @Course.status == true %>
         Active
     <% else %>
         InActive
     <% end %>
   </li>
-  <li class="list-group-item">Instructor :  <%= Instructor.find(@Course.instructor_id).name%></li>
+  <li class="list-group-item">Instructor :  <%= Instructor.find(@Course.instructor_id).name %></li>
 </ul>
 
 
@@ -26,11 +27,15 @@
           <tr>
             <td><%= f.title %></td>
             <td><%= f.description %></td>
-            <%if f.material_type == '1'  %>
-                <strong/> <p style='color: #B00100'>  Deadline</p>
-            <%else%>
-                <strong/> <p style ='color: blue'>Notification</p>
-            <%end%>
+            <td>
+              <% if f.material_type == '1' %>
+                  <strong/>
+                  <p style='color: #B00100'> Deadline</p>
+              <% else %>
+                  <strong/>
+                  <p style='color: blue'>Notification</p>
+              <% end %>
+            </td>
           </tr>
       <% end %>
     </table>
