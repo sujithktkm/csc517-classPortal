@@ -9,6 +9,7 @@
       <td class="col-xs-1"><strong/>End Date</td>
       <td class="col-xs-1"><strong/>Grade</td>
       <td class="col-xs-1"><strong/>Instructor</td>
+      <td class="col-xs-1"><strong/>Action</td>
     </tr>
     <% @courseinfo_active.each do |c| %>
         <% @instructor = Instructor.find_by_sql('SELECT * from users WHERE id = '  + c.instructor_id.to_s).first %>
@@ -22,6 +23,7 @@
           <td class="col-xs-1"><%= c.end_date %></td>
           <td class="col-xs-1"><%= c.grade %></td>
           <td class="col-xs-1"><%= @instructor.name %></td>
+          <td><%= link_to 'Drop Course', enrollments_destroy_path(:course_id => c.id,:student_id => session[:user_id]), method: 'delete',:class =>'btn   btn-danger' %></td>
         </tr>
     <% end %>
   </table>

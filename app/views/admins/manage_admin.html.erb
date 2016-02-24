@@ -9,8 +9,11 @@
           <tr>
             <td><%= admin.name %></td>
             <td><%= link_to 'View details', view_admin_path(admin), :class => 'btn btn-success' %></td>
+            <%if admin.email != "admin@csc517.com" && @user_authenticated.email != admin.email  %>
             <td><%= link_to 'Delete', delete_admin_path(admin), :class => 'btn btn-warning' %></td>
+            <% end %>
           </tr>
+
       <% end %>
     </table>
     <%= link_to 'Create new Admin', '/admins/manage_admin/create_admin', :class => 'btn btn-info' %>

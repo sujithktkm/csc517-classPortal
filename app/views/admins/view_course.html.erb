@@ -13,4 +13,24 @@
   <li class="list-group-item">Instructor :  <%= Instructor.find(@Course.instructor_id).name%></li>
 </ul>
 
+
+<% if @material %>
+    <h3>Course Material and Announcements</h3> <br>
+    <table class="table">
+      <tr>
+        <th class="col-md-1">Title</th>
+        <th class="col-md-1">Description</th>
+        <th class="col-md-1">Material Type</th>
+      </tr>
+      <% @material.each do |f| %>
+          <tr>
+            <td><%= f.title %></td>
+            <td><%= f.description %></td>
+            <td><%= f.material_type %></td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>
+
+
 <%= link_to 'Back', '/admins/manage_course', :class => 'btn btn-info' %>
