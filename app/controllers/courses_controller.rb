@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find_by_id(params[:id])
     @coursepage_material = CoursepageMaterial.find_by(course_id: @course.id) if @course
+    @material = CoursepageMaterial.where("course_id=?", params[:id])
   end
 
   def list_courses

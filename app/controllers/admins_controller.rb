@@ -100,7 +100,7 @@ class AdminsController < ApplicationController
         flash[:success] = 'Course edit successful!'
         redirect_to(:action => 'manage_course')
       else
-        flash[:danger] = 'Cannot edit course!'
+        flash[:danger] = 'Please try again and check the Date fields or Instructors are selected properly '
         redirect_to(:action => 'manage_course')
       end
     end
@@ -252,6 +252,7 @@ class AdminsController < ApplicationController
 
   def view_course
     @Course = Course.find(params[:id])
+    @material = CoursepageMaterial.where("course_id=?", params[:id])
   end
 
   def delete_course

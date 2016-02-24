@@ -64,8 +64,9 @@ class EnrollmentsController < ApplicationController
     studentenrollment.destroy
 
     history = History.where(course_id: params[:course_id], user_id: params[:student_id]).first
-    history.destroy
-
+    if history
+      history.destroy
+    end
     redirect_to root_path
 
   end
