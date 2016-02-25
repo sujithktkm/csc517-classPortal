@@ -26,7 +26,7 @@
           <tr>
             <td><%= f.title %></td>
             <td><%= f.description %></td>
-            <td><%= f.material_type %></td>
+            <td><%= f.material_type=="1" ? 'Deadline' : 'Notification' %></td>
           </tr>
       <% end %>
     </table>
