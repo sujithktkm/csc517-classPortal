@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     if student_params[:name].nil? || student_params[:email].nil? || student_params[:name].blank? || student_params[:email].blank?
       flash[:danger] = 'Blank details!'
       render new_student_path
-    elsif User.where("email = ?", student_params[:email]).blank?
+    elsif User.where('email = ?', student_params[:email]).blank?
       if @student.save
         session[:student_id] = @student.id
         flash[:success] = 'Student created successfully'
@@ -47,7 +47,7 @@ class StudentsController < ApplicationController
     if student_params[:name].nil? || student_params[:email].nil? || student_params[:name].blank? || student_params[:email].blank?
       flash[:danger] = 'Blank details!'
       render 'edit'
-    elsif User.where("email = ? AND id NOT IN (?)", student_params[:email], @student.id).blank?
+    elsif User.where('email = ? AND id NOT IN (?)', student_params[:email], @student.id).blank?
       if @student.update(student_params)
         flash[:success] = 'Updated profile!'
         redirect_to root_path
@@ -63,8 +63,8 @@ class StudentsController < ApplicationController
 
   # Display my courses
   def show
-    @courseinfo_active = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled AND "courses"."status" = :status', :studentid => session[:user_id], :enrolled => "ENROLLED", :status => true)
-    @courseinfo_inactive = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled AND "courses"."status" = :status', :studentid => session[:user_id], :enrolled => "ENROLLED", :status => false)
+    @courseinfo_active = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled AND "courses"."status" = :status', :studentid => session[:user_id], :enrolled => 'ENROLLED', :status => true)
+    @courseinfo_inactive = StudentEnrollment.select('"student_enrollments"."grade", "courses".*').joins(:course).where('"student_enrollments"."student_id" = :studentid AND "student_enrollments"."status" = :enrolled AND "courses"."status" = :status', :studentid => session[:user_id], :enrolled => 'ENROLLED', :status => false)
   end
 
 

@@ -96,10 +96,12 @@ class AdminsController < ApplicationController
       flash[:danger] = 'Cannot have blanks!'
       redirect_to(:action => 'manage_course')
     else
+      debugger
       if @Course.update_attributes(course_params)
         flash[:success] = 'Course edit successful!'
         redirect_to(:action => 'manage_course')
       else
+        # debugger
         flash[:danger] = 'Please try again and check the Date fields or Instructors are selected properly '
         redirect_to(:action => 'manage_course')
       end
