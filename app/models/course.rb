@@ -7,8 +7,8 @@ class Course < ActiveRecord::Base
 
   validate :DateChecker
   def DateChecker
-    if start_date > end_date || start_date < Date.today
-      errors.add(:start_date,"Dates are not selected properly")
+    if start_date > end_date
+      errors.add(:start_date, 'Dates are not selected properly')
     end
   end
 

@@ -17,7 +17,8 @@ class CoursepageMaterialsController < ApplicationController
         if @user_authenticated.type == 'Admin'
           redirect_to admins_manage_course_path
         elsif @user_authenticated.type == 'Instructor'
-          redirect_to '/courses/show'
+          redirect_to course_path(:id=>@coursepage_material.course_id)
+
         end
       else
         flash[:danger] = 'Cannot Add. Please contact admin'
