@@ -199,8 +199,8 @@ class AdminsController < ApplicationController
 
     if @user.type == 'Instructor'
       @instructor = @user
-      if Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id], Date.today, Date.today)
-        @course = Course.where("instructor_id = ? and (start_date > ? or end_date > ?)", params[:id], Date.today, Date.today)
+      if Course.where("instructor_id = ? and (start_date >= ? or end_date >= ?)", params[:id], Date.today, Date.today)
+        @course = Course.where("instructor_id = ? and (start_date >= ? or end_date >= ?)", params[:id], Date.today, Date.today)
         @course.each do |course|
           @message = Message.where("instructor_id=?",params[:id])
           @message.each do |message|

@@ -9,9 +9,8 @@
     <% @studentlist.each do |s| %>
         <tr>
           <td class="col-xs-1"><%= User.find(s.id).name %></td>
-          <% if Message.where("student_id=? and instructor_id=?",s.id,session[:user_id]).last %>
-
-          <td class="col-xs-1"><%= Message.where("student_id=? and instructor_id=?",s.id,session[:user_id]).last.content %></td>
+          <% if Message.where("student_id=? and instructor_id=? and course_id=?",s.id,session[:user_id],session[:courseid]).last %>
+              <td class="col-xs-1"><%= Message.where("student_id=? and instructor_id=? and course_id=?",s.id,session[:user_id],session[:courseid]).last.content %></td>
              <% else %>
               <td class="col-xs-1"> </td>
               <%end%>
