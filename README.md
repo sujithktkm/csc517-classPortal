@@ -46,13 +46,14 @@ Password: csc517
 ##Assumptions
 Here are assumptions as part of development of this application -
 * This model assumes that when an Admin creates a user with login email and password, admin communicates the same to the user and the use can login using these details. The user can change his password after his first login using 'Edit Profile' option.
-* If an Instructor is deleted, history of courses Instructor is currently teaching and are scheduled for future will be lost. The history of already taught courses is saved so that student who had taken the course can view their grades.
+* If an Instructor is deleted, history of courses (active) Instructor is currently teaching and that are scheduled for future will be lost. The history of already taught courses is saved so that student who had taken the course can view their grades.
+* If an active course is deleted, then student enrollments, enrollment requests and history information (of this specific course) of users and instructors related to that particular course are all removed from system.
 * There can be more than one section for a given course (same course number) and a student can only enroll in one of these sections.
 * Having multiple instructors for a given course is implemented as creating mutiple sections for the same course.
 
 ##Extra Credit
 This application has the following features, which fall under Bonus/Extra Credit -
-* Students and Instructors can exchange private messages.
+* Students and Instructors can exchange private messages. Messages can only be exchanged between an Instructor and students enrolled in his/her course(s).
 * An Instructor of the course can request to make a course “Inactive”. The request can be viewed by the admins only.
 
 ##References
