@@ -42,6 +42,9 @@ Password: csc517
 - Admin can view course content/material when they click 'View details' button adjacent to corresponding course in 'Manage Courses' tab.
 - Grades assigned to students are only numeric (0-100) in steps on 1. (If you try to enter alphabets, the field doesn't even take your input)
 - Student can cancel Enrollment Request only by using 'Search Courses' tab, searching for the course they sent a Enrollment Request for, clicking the course (only for Active courses) and hitting 'Cancel Enrollment Request' button.
+- To send an Inactivation request for a particular course, Instructor can click 'Inactivate Course' button after selecting a course from their list of courses.
+- As an instructor, to send messages, an Instructor can click 'Messages' button after selecting a course from their list of courses. In the messages view, there is a 'Send message' option for each student enrolled in course. This helps them to send a message to particular student. (No bulk messages are supported)
+- For students, to send a message, they can hit 'View messages' after selecting a course from their list of courses. In the messages view, they can send a message by entering the message in textbox and clicking 'Send Message' button. (A student can send messages only to instructors of his/her courses).
 
 ##Assumptions
 Here are assumptions as part of development of this application -
